@@ -20,6 +20,9 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
       }) => {
         const params = new URLSearchParams({ ...query });
 
+        console.info(`Starting item#${index + 1} ${JSON.stringify(query)}...`);
+        const timestamp = new Date();
+
         const response = await fetch(`https://api.harvest-api.com/${path}?${params.toString()}`, {
           headers: { 'X-API-Key': process.env.HARVESTAPI_TOKEN! },
         })
@@ -37,12 +40,15 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
         }
 
         processedCounter++;
+        const elapsed = new Date().getTime() - timestamp.getTime();
 
         if (response.element?.id && response.status < 400) {
-          // Save headings to Dataset - a table-like storage.
           console.info(
-            `Scraped item#${index + 1} ${JSON.stringify(query)}. Progress: ${processedCounter}/${total}`,
+            `Scraped item#${index + 1} ${JSON.stringify(query)}. Elapsed: ${(
+              elapsed / 1000
+            ).toFixed(2)}s. Progress: ${processedCounter}/${total}`,
           );
+          // Save headings to Dataset - a table-like storage.
           await Actor.pushData(response);
         } else {
           console.error(
