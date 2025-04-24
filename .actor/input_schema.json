@@ -3,38 +3,25 @@
   "type": "object",
   "schemaVersion": 1,
   "properties": {
-    "profiles": {
-      "title": "Profiles",
+    "urls": {
+      "title": "Profile URLs",
       "type": "array",
-      "editor": "keyValue",
-      "items": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "title": "The URL of profile you want to scrape.",
-            "type": "string",
-            "description": "Provide at least one of the 3 fields: url or publicIdentifier or profileId",
-            "editor": "textfield"
-          },
-          "publicIdentifier": {
-            "title": "Public Identifier of the profile, last part in the URL",
-            "type": "string",
-            "description": "Provide at least one of the 3 fields: url or publicIdentifier or profileId",
-            "editor": "textfield"
-          },
-          "profileId": {
-            "title": "Internal LinkedIn ID of the profile.",
-            "type": "string",
-            "description": "Provide at least one of the 3 fields: url or publicIdentifier or profileId",
-            "editor": "textfield"
-          }
-        }
-      },
-      "prefill": [
-        {
-          "url": "https://www.linkedin.com/in/williamhgates"
-        }
-      ]
+      "editor": "stringList",
+      "description": "List of LinkedIn profile URLs to scrape. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs",
+      "prefill": ["https://www.linkedin.com/in/williamhgates"]
+    },
+    "publicIdentifiers": {
+      "title": "Public Identifier of the profile, last part in the URL",
+      "type": "array",
+      "editor": "stringList",
+      "description": "List of LinkedIn Public Identifiers. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs",
+      "prefill": ["towhid-rahman"]
+    },
+    "profileIds": {
+      "title": "LinkedIn Profile IDs",
+      "type": "array",
+      "editor": "stringList",
+      "description": "List of LinkedIn profile IDs to scrape. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs"
     }
   },
   "required": ["profiles"]
