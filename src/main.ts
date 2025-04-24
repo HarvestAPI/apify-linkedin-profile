@@ -1,5 +1,6 @@
 // Apify SDK - toolkit for building Apify Actors (Read more at https://docs.apify.com/sdk/js/).
 import { Actor } from 'apify';
+import { createHarvestApiScraper } from './utils/scraper.js';
 
 // this is ESM project, and as such, it requires you to specify extensions in your relative imports
 // read more about this here: https://nodejs.org/docs/latest-v18.x/api/esm.html#mandatory-file-extensions
@@ -9,7 +10,7 @@ import { Actor } from 'apify';
 // The init() call configures the Actor for its environment. It's recommended to start every Actor with an init().
 await Actor.init();
 
-console.log(`userId:`, Actor.getEnv().userId);
+// console.log(`userId:`, Actor.getEnv().userId);
 
 interface Input {
   urls?: string[];
@@ -26,27 +27,18 @@ const profiles = [
   ...(input.profileIds || []).map((profileId) => ({ profileId })),
 ];
 
-for (const profile of profiles) {
-  const params = new URLSearchParams({ ...profile });
+const profileScraper = createHarvestApiScraper({
+  concurrency: 3,
+});
 
-  let response = await fetch(`https://api.harvest-api.com/linkedin/profile?${params.toString()}`, {
-    headers: { 'X-API-Key': process.env.HARVESTAPI_TOKEN! },
-  }).then((response) => response.json());
-
-  console.info(
-    `Scraped ${JSON.stringify(profile)}. Progress: ${profiles.indexOf(profile) + 1}/${profiles.length}`,
-  );
-
-  if (response.status && response.status >= 400 && typeof response.error === 'object') {
-    response = response.error;
-  }
-
-  delete response.user;
-  delete response.credits;
-
-  // Save headings to Dataset - a table-like storage.
-  await Actor.pushData(response);
-}
+profiles.forEach((profile, index) => {
+  profileScraper.addJob({
+    query: profile,
+    index,
+    path: 'linkedin/profile',
+    total: profiles.length,
+  });
+});
 
 // Gracefully exit the Actor process. It's recommended to quit all Actors with an exit().
 await Actor.exit();
