@@ -13,19 +13,19 @@ Our powerful tool helps you gather detailed professional information from Linked
 
 Simply provide one of the following:
 
-- LinkedIn public identifier (e.g., `williamhgates` from `https://www.linkedin.com/in/williamhgates`)
-- Complete LinkedIn profile URL
-- LinkedIn profile ID (e.g. ACoAAA8BYqEBCGLg_vT_ca6mMEqkpp9nVffJ3hc)
+- List of LinkedIn public identifiers (e.g., `williamhgates` from `https://www.linkedin.com/in/williamhgates`)
+- List of LinkedIn profile URLs
+- List if LinkedIn profile IDs (e.g. ACoAAA8BYqEBCGLg_vT_ca6mMEqkpp9nVffJ3hc)
 
 ### Data You'll Receive
 
+- Profile summary and headline
 - Current and previous work experience
 - Educational qualifications
 - Location and contact information
 - Skills and endorsements
 - Recommendations and connections
-- Profile summary and headline
-- Activity and engagement metrics
+- Certifications and projects
 
 ### Sample output data
 
