@@ -31,13 +31,17 @@ const profileScraper = createHarvestApiScraper({
   concurrency: 3,
 });
 
-profiles.forEach((profile, index) => {
-  profileScraper.addJob({
+const promises = profiles.map((profile, index) => {
+  return profileScraper.addJob({
     query: profile,
     index,
     path: 'linkedin/profile',
     total: profiles.length,
   });
+});
+
+await Promise.all(promises).catch((error) => {
+  console.error(`Error scraping profiles:`, error);
 });
 
 // Gracefully exit the Actor process. It's recommended to quit all Actors with an exit().
