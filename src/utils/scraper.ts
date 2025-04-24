@@ -41,7 +41,7 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
         if (response.element?.id && response.status < 400) {
           // Save headings to Dataset - a table-like storage.
           console.info(
-            `Scraped item#${index} ${JSON.stringify(query)}. Progress: ${processedCounter}/${total}`,
+            `Scraped item#${index + 1} ${JSON.stringify(query)}. Progress: ${processedCounter}/${total}`,
           );
           await Actor.pushData(response);
         } else {

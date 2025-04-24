@@ -8,6 +8,7 @@ Our powerful tool helps you gather detailed professional information from Linked
 - Low pricing: $4 per 1k profiles. We don't use Apify proxy, to not charge you more.
 - Fast response times deliver data in seconds.
 - No caching, fresh data.
+- Concurrency: this actor works scraping 3 profiles simultaneously
 
 ## How It Works
 
