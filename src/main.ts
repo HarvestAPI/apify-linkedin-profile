@@ -10,26 +10,25 @@ import { Actor } from 'apify';
 await Actor.init();
 
 interface Input {
-    url: string;
-    publicIdentifier: string;
+  url: string;
+  publicIdentifier: string;
 }
 // Structure of input is defined in input_schema.json
 const input = await Actor.getInput<Input>();
-if (!input) throw new Error("Input is missing!");
+if (!input) throw new Error('Input is missing!');
 
-const params = new URLSearchParams(input as any);
+const params = new URLSearchParams({ ...input });
 
 let response = await fetch(`https://api.harvest-api.com/linkedin/profile?${params.toString()}`, {
   headers: { 'X-API-Key': process.env.HARVESTAPI_TOKEN! },
-})
-  .then((response) => response.json())
-
-delete response.user;
-delete response.credits;
+}).then((response) => response.json());
 
 if (response.status && response.status >= 400 && typeof response.error === 'object') {
   response = response.error;
 }
+
+delete response.user;
+delete response.credits;
 
 // Save headings to Dataset - a table-like storage.
 await Actor.pushData(response);
