@@ -2,6 +2,8 @@ import { Actor } from 'apify';
 import { createConcurrentQueues } from './queue.js';
 
 export function createHarvestApiScraper({ concurrency }: { concurrency: number }) {
+  let processedCounter = 0;
+
   return {
     addJob: createConcurrentQueues(
       concurrency,
@@ -34,9 +36,13 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
           delete response.error.credits;
         }
 
+        processedCounter++;
+
         if (response.element?.id && response.status < 400) {
           // Save headings to Dataset - a table-like storage.
-          console.info(`Scraped ${JSON.stringify(query)}. Progress: ${index + 1}/${total}`);
+          console.info(
+            `Scraped item#${index} ${JSON.stringify(query)}. Progress: ${processedCounter}/${total}`,
+          );
           await Actor.pushData(response);
         } else {
           console.error(
