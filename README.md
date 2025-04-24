@@ -352,7 +352,6 @@ Here is the sample output of this actor:
   },
   "query": {
     "publicIdentifier": "towhid-rahman",
-    "tryFindEmail": true,
     "profileId": "ACoAACLevxsBfWQoDUYkHyCP2jzl81cDAvckQEI"
   },
   "status": 200,
