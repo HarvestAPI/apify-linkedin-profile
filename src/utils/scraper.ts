@@ -1,6 +1,8 @@
 import { Actor } from 'apify';
 import { createConcurrentQueues } from './queue.js';
 
+const MAX_SCRAPED_ITEMS = 1000;
+
 export function createHarvestApiScraper({ concurrency }: { concurrency: number }) {
   let processedCounter = 0;
 
@@ -18,6 +20,11 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
         index: number;
         total: number;
       }) => {
+        if (processedCounter >= MAX_SCRAPED_ITEMS) {
+          console.warn(`Max scraped items reached: ${MAX_SCRAPED_ITEMS}`);
+          return;
+        }
+
         const params = new URLSearchParams({ ...query });
 
         console.info(`Starting item#${index + 1} ${JSON.stringify(query)}...`);
