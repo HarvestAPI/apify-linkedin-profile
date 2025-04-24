@@ -52,7 +52,11 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
           await Actor.pushData(response);
         } else {
           console.error(
-            `Error scraping ${JSON.stringify(query)}: ${JSON.stringify(response, null, 2)}`,
+            `Error scraping ${JSON.stringify(query)}: ${JSON.stringify(
+              typeof response.error === 'object' ? response.error : response,
+              null,
+              2,
+            )}`,
           );
         }
       },
