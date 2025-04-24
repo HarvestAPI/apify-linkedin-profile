@@ -10,18 +10,18 @@ import { Actor } from 'apify';
 await Actor.init();
 
 interface Input {
-  urls: string[];
-  publicIdentifiers: string[];
-  profileIds: string[];
+  urls?: string[];
+  publicIdentifiers?: string[];
+  profileIds?: string[];
 }
 // Structure of input is defined in input_schema.json
 const input = await Actor.getInput<Input>();
 if (!input) throw new Error('Input is missing!');
 
 const profiles = [
-  ...input.urls.map((url) => ({ url })),
-  ...input.publicIdentifiers.map((publicIdentifier) => ({ publicIdentifier })),
-  ...input.profileIds.map((profileId) => ({ profileId })),
+  ...(input.urls || []).map((url) => ({ url })),
+  ...(input.publicIdentifiers || []).map((publicIdentifier) => ({ publicIdentifier })),
+  ...(input.profileIds || []).map((profileId) => ({ profileId })),
 ];
 
 for (const profile of profiles) {
@@ -30,6 +30,10 @@ for (const profile of profiles) {
   let response = await fetch(`https://api.harvest-api.com/linkedin/profile?${params.toString()}`, {
     headers: { 'X-API-Key': process.env.HARVESTAPI_TOKEN! },
   }).then((response) => response.json());
+
+  console.info(
+    `Scraped ${JSON.stringify(profile)}. Progress: ${profiles.indexOf(profile) + 1}/${profiles.length}`,
+  );
 
   if (response.status && response.status >= 400 && typeof response.error === 'object') {
     response = response.error;
