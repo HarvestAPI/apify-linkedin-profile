@@ -3,24 +3,39 @@
   "type": "object",
   "schemaVersion": 1,
   "properties": {
-    "url": {
-      "title": "The URL of profile you want to scrape.",
-      "type": "string",
-      "description": "Provide at least one of the 3 fields: url or publicIdentifier or profileId",
-      "editor": "textfield",
-      "prefill": "https://www.linkedin.com/in/williamhgates"
-    },
-    "publicIdentifier": {
-      "title": "Public Identifier of the profile, last part in the URL",
-      "type": "string",
-      "description": "Provide at least one of the 3 fields: url or publicIdentifier or profileId",
-      "editor": "textfield"
-    },
-    "profileId": {
-      "title": "Internal LinkedIn ID of the profile.",
-      "type": "string",
-      "description": "Provide at least one of the 3 fields: url or publicIdentifier or profileId",
-      "editor": "textfield"
+    "profiles": {
+      "title": "Profiles",
+      "type": "array",
+      "editor": "requestListSources",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "title": "The URL of profile you want to scrape.",
+            "type": "string",
+            "description": "Provide at least one of the 3 fields: url or publicIdentifier or profileId",
+            "editor": "textfield"
+          },
+          "publicIdentifier": {
+            "title": "Public Identifier of the profile, last part in the URL",
+            "type": "string",
+            "description": "Provide at least one of the 3 fields: url or publicIdentifier or profileId",
+            "editor": "textfield"
+          },
+          "profileId": {
+            "title": "Internal LinkedIn ID of the profile.",
+            "type": "string",
+            "description": "Provide at least one of the 3 fields: url or publicIdentifier or profileId",
+            "editor": "textfield"
+          }
+        }
+      },
+      "prefill": [
+        {
+          "url": "https://www.linkedin.com/in/williamhgates"
+        }
+      ]
     }
-  }
+  },
+  "required": ["profiles"]
 }

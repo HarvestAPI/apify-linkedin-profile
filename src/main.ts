@@ -10,28 +10,33 @@ import { Actor } from 'apify';
 await Actor.init();
 
 interface Input {
-  url: string;
-  publicIdentifier: string;
+  profiles: {
+    url: string;
+    publicIdentifier: string;
+    profileId: string;
+  }[];
 }
 // Structure of input is defined in input_schema.json
 const input = await Actor.getInput<Input>();
 if (!input) throw new Error('Input is missing!');
 
-const params = new URLSearchParams({ ...input });
+for (const profile of input.profiles) {
+  const params = new URLSearchParams({ ...profile });
 
-let response = await fetch(`https://api.harvest-api.com/linkedin/profile?${params.toString()}`, {
-  headers: { 'X-API-Key': process.env.HARVESTAPI_TOKEN! },
-}).then((response) => response.json());
+  let response = await fetch(`https://api.harvest-api.com/linkedin/profile?${params.toString()}`, {
+    headers: { 'X-API-Key': process.env.HARVESTAPI_TOKEN! },
+  }).then((response) => response.json());
 
-if (response.status && response.status >= 400 && typeof response.error === 'object') {
-  response = response.error;
+  if (response.status && response.status >= 400 && typeof response.error === 'object') {
+    response = response.error;
+  }
+
+  delete response.user;
+  delete response.credits;
+
+  // Save headings to Dataset - a table-like storage.
+  await Actor.pushData(response);
 }
-
-delete response.user;
-delete response.credits;
-
-// Save headings to Dataset - a table-like storage.
-await Actor.pushData(response);
 
 // Gracefully exit the Actor process. It's recommended to quit all Actors with an exit().
 await Actor.exit();
