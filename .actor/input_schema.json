@@ -23,6 +23,5 @@
       "editor": "stringList",
       "description": "List of LinkedIn profile IDs to scrape. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs"
     }
-  },
-  "required": ["profiles"]
+  }
 }
