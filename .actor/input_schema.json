@@ -6,7 +6,7 @@
     "profiles": {
       "title": "Profiles",
       "type": "array",
-      "editor": "requestListSources",
+      "editor": "keyValue",
       "items": {
         "type": "object",
         "properties": {
