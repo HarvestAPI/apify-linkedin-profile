@@ -5,7 +5,7 @@ Our powerful tool helps you gather detailed professional information from Linked
 ### Key Benefits
 
 - No cookies or account required: Access profile data without sharing cookies or risking account restrictions
-- Low pricing: $4 per 1k profiles. We don't use Apify proxy, to not charge you more.
+- Low pricing: $4 per 1k profiles.
 - Fast response times deliver data in seconds.
 - No caching, fresh data.
 - Concurrency: this actor works scraping 3 profiles at a time.
@@ -28,7 +28,7 @@ Simply provide one of the following:
 - Recommendations and connections
 - Certifications and projects
 
-Up to 1000 profiles per actor run.
+Up to 1000 profiles per one actor run.
 
 ### Sample output data
 
