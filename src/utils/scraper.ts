@@ -2,6 +2,7 @@ import { Actor } from 'apify';
 import { createConcurrentQueues } from './queue.js';
 
 const MAX_SCRAPED_ITEMS = 1000;
+const USER_ID = Actor.getEnv().userId;
 
 export function createHarvestApiScraper({ concurrency }: { concurrency: number }) {
   let processedCounter = 0;
@@ -31,7 +32,10 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
         const timestamp = new Date();
 
         const response = await fetch(`https://api.harvest-api.com/${path}?${params.toString()}`, {
-          headers: { 'X-API-Key': process.env.HARVESTAPI_TOKEN! },
+          headers: {
+            'X-API-Key': process.env.HARVESTAPI_TOKEN!,
+            'x-apify-userid': USER_ID!,
+          },
         })
           .then((response) => response.json())
           .catch((error) => {
