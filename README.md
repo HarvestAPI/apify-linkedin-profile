@@ -8,7 +8,7 @@ Our powerful tool helps you gather detailed professional information from Linked
 - Low pricing: $4 per 1k profiles.
 - Fast response times deliver data in seconds.
 - No caching, fresh data.
-- Concurrency: this actor works scraping 3 profiles at a time.
+- Concurrency: each actor works scraping 3 profiles at a time. It does mass scraping fast ⚡
 
 ## How It Works
 
@@ -45,7 +45,7 @@ Here is the example output of this actor:
     "headline": "Pharmacology | Medical Science Liasion | Pharmacovigilence | Regulatory Toxicologist | Process Validation | Project Management | Leadership | Photography",
     "about": "I find myself at a unique crossroads where science meets compassion. With over eight years of experience in pharmacology, my journey has been fueled by a genuine desire to improve patient lives. Working at CVS Health has allowed me to interact with over 100 patients each week, guiding them through their health journeys not just by dispensing medications but by truly listening and building trust. It's incredibly rewarding to know I play a part in their well-being.\n\nIn my time as a Staff Pharmacist, I’ve exceeded daily production targets by 15% while ensuring timely service for more than 1,000 patients weekly. Collaborating with diverse pharmacy teams across Los Angeles has taught me the importance of understanding unique demographic needs. Whether it’s addressing medication safety or enhancing patient satisfaction through targeted counseling initiatives, I’m dedicated to creating solutions that resonate.\n\nOne of my proudest moments was during my internship at Harbor-UCLA Medical Center when I administered over 1,500 immunizations. This experience opened my eyes to the impact preventive healthcare can have on communities. By conducting health screenings and engaging patients directly about disease management education, I contributed to improved public health outcomes—something that drives me every day.\n\nOutside of my professional life, I have a passion for photography. This hobby allows me to express my creativity while honing my attention to detail—skills that translate seamlessly into my work. Capturing moments behind the lens reminds me how important it is to appreciate the little things in life.\n\nIf you're interested in discussing innovative approaches in product development or project management within the healthcare field—or if you simply want to chat about photography—I would love to connect! Feel free to reach out via email—let’s explore how we can make an impact together.\n\nSkills:\n- Patient Care Management\n- Medication Optimization\n- Process Validation\n- Project Management\n- Drug Utilization Review",
     "linkedinUrl": "https://www.linkedin.com/in/towhid-rahman",
-    "photo": "https://media.licdn.com/dms/image/v2/C5603AQEbgBlEFwrtUg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1567218693232?e=1750896000&v=beta&t=xygwE57__luQ9N7_1U_WcNiq5ybeQc8cZFqEXeBG9WI",
+    "photo": "https://media.licdn.com/dms/image/v2/C5603AQEbgBlEFwrtUg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1567218693232?e=1751500800&v=beta&t=9gZ7yPJ4lF9pC-Pv558rcC_AAOvPLHBKTokY7Zgta8A",
     "registeredAt": "2017-07-29T17:39:39.165Z",
     "topSkills": "Pharmacology • Patient Counseling",
     "connectionsCount": 257,
@@ -76,7 +76,7 @@ Here is the example output of this actor:
         "companyLinkedinUrl": "https://www.linkedin.com/company/cvshealth/",
         "companyId": "4680",
         "companyUniversalName": "cvshealth",
-        "duration": "1 yr 4 mos",
+        "duration": "1 yr 5 mos",
         "companyName": "CVS Health",
         "description": "*Exceeded daily production targets by 15% in a high-demand pharmacy environment while ensuring timely service delivery to over 1000 patients each week without compromising quality or accuracy.\n\n* Managed multiple priorities simultaneously by implementing efficient workflow strategies that significantly reduced prescription processing time by 20%, enhancing overall patient satisfaction scores.\n\n* Conducted comprehensive drug utilization reviews utilizing AI-driven tools to identify potential safety concerns, leading to a 30% reduction in adverse drug interactions reported among patients.\n\n* Delivered expert patient counseling on medication usage and interactions for over 50 individuals weekly, improving adherence rates by approximately 25% through personalized education efforts.\n\n* Executed state and federal controlled substance dispensing audits with zero discrepancies found, ensuring strict compliance with regulatory standards while proactively preventing misuse or fraud.",
         "position": "Staff Pharmacist | Prescription Dispensing, Drug Utilization Review, Regulatory Compliance",
@@ -351,7 +351,92 @@ Here is the example output of this actor:
         "link": "https://www.acpjournals.org/doi/10.7326/M23-0287"
       }
     ],
-    "verified": true
+    "verified": true,
+    "moreProfiles": [
+      {
+        "id": "ACoAAC_2Mh4B-jT1s51XIyXnTBVVpqjvD8Q9tlk",
+        "firstName": "Teresa",
+        "lastName": "Tong-Fong, PharmD, MBA",
+        "position": "Regional Pharmacy Director - Pharmacy Quality & Medication Safety",
+        "publicIdentifier": "teresa-tong-fong-pharm-d",
+        "linkedinUrl": "https://www.linkedin.com/in/teresa-tong-fong-pharm-d"
+      },
+      {
+        "id": "ACoAAC__wVcBn23Yc4AnbMI19OhyiARnjWKGE14",
+        "firstName": "Thuy",
+        "lastName": "Tran, MSN, FNP-C",
+        "position": "Principal Medical Safety Specialist at Medtronic Neurovascular",
+        "publicIdentifier": "thuy-tran-msn-fnp-c-5b38341a5",
+        "linkedinUrl": "https://www.linkedin.com/in/thuy-tran-msn-fnp-c-5b38341a5"
+      },
+      {
+        "id": "ACoAAC2r33QBz4r6f1fJVsFMMmNxC5OvzyfSMQk",
+        "firstName": "Parastou",
+        "lastName": "Divdad",
+        "publicIdentifier": "parastou-divdad-130741194",
+        "linkedinUrl": "https://www.linkedin.com/in/parastou-divdad-130741194"
+      },
+      {
+        "id": "ACoAADRRD_IBvWWIk4nSfSKZGwqKttK4NF_eNtU",
+        "firstName": "Jesus",
+        "lastName": "Rottier",
+        "publicIdentifier": "jesus-rottier",
+        "linkedinUrl": "https://www.linkedin.com/in/jesus-rottier"
+      },
+      {
+        "id": "ACoAAAQPJU8BLpBimqo7xv1VXFyF8lc6rIEfQP4",
+        "firstName": "Jessica",
+        "lastName": "Beck",
+        "publicIdentifier": "jessica-beck-6939821a",
+        "linkedinUrl": "https://www.linkedin.com/in/jessica-beck-6939821a"
+      },
+      {
+        "id": "ACoAACbEw4gBFzRhHwIEJJREGHciYLuWroAP8Qg",
+        "firstName": "Athena",
+        "lastName": "Kepler DVM CCAS",
+        "position": "Veterinarian, Entrepreneur",
+        "publicIdentifier": "athena-kepler-dvm-ccas-a349b1161",
+        "linkedinUrl": "https://www.linkedin.com/in/athena-kepler-dvm-ccas-a349b1161"
+      },
+      {
+        "id": "ACoAABM8t8gBlF9jEWfE7BGK1yyG1sPkUv5YeyQ",
+        "firstName": "Md",
+        "lastName": "Solaiman",
+        "publicIdentifier": "md-solaiman-5a010690",
+        "linkedinUrl": "https://www.linkedin.com/in/md-solaiman-5a010690"
+      },
+      {
+        "id": "ACoAAC7OFXIBzudKTqDYxiiX5CeaFclgy0k47eA",
+        "firstName": "Nicolet",
+        "lastName": "Deeb, PharmD, RPh",
+        "publicIdentifier": "nicolet-deeb-pharmd-rph-756b9319a",
+        "linkedinUrl": "https://www.linkedin.com/in/nicolet-deeb-pharmd-rph-756b9319a"
+      },
+      {
+        "id": "ACoAAEwIZnYBxk-EDOs1ivFqmLTaBhF4PohSEiU",
+        "firstName": "Heverley",
+        "lastName": "Grano",
+        "position": "Milling and planing machine tender at Kelly and Cohen",
+        "publicIdentifier": "heverley-grano-49a2512b7",
+        "linkedinUrl": "https://www.linkedin.com/in/heverley-grano-49a2512b7"
+      },
+      {
+        "id": "ACoAADbYjskBd7f8BVD5acdfWdlBGRq6nr0kTBY",
+        "firstName": "Alivia",
+        "lastName": "Stoddard, DMD",
+        "position": "Dentist at Belleville Smiles in Belleville, Michigan\n\nBelleville Smiles - Family Dentist \n35 Main St #102, Belleville, MI 48111\n  \nCall to schedule today! (734) 697-3011",
+        "publicIdentifier": "alivia-stoddard-dmd-1a11b1218",
+        "linkedinUrl": "https://www.linkedin.com/in/alivia-stoddard-dmd-1a11b1218"
+      },
+      {
+        "id": "ACoAACMw8Z0BIJlExyvn90Sq-CT9V01ILWaj1vI",
+        "firstName": "Daniel Cory",
+        "lastName": "Short",
+        "position": "Hospitalist, CMO Logan Health",
+        "publicIdentifier": "daniel-cory-short-651888145",
+        "linkedinUrl": "https://www.linkedin.com/in/daniel-cory-short-651888145"
+      }
+    ]
   },
   "query": {
     "publicIdentifier": "towhid-rahman",
