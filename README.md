@@ -8,7 +8,7 @@ Our powerful tool helps you gather detailed professional information from Linked
 - Low pricing: $4 per 1k profiles.
 - Fast response times deliver data in seconds.
 - No caching, fresh data.
-- Concurrency: each actor works scraping 3 profiles at a time. It does mass scraping fast ⚡
+- Concurrency: each actor works scraping 3 profiles at a time.
 
 ## How It Works
 
