@@ -28,7 +28,6 @@ Simply provide one of the following:
 - Recommendations and connections
 - Certifications and projects
 
-Up to 1000 profiles per one actor run.
 
 ### Sample output data
 
