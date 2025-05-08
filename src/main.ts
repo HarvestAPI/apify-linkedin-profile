@@ -28,7 +28,7 @@ const profiles = [
 ];
 
 const profileScraper = createHarvestApiScraper({
-  concurrency: 5,
+  concurrency: 6,
 });
 
 const promises = profiles.map((profile, index) => {

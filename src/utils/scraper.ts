@@ -1,10 +1,12 @@
 import { Actor } from 'apify';
 import { createConcurrentQueues } from './queue.js';
 
-const USER_ID = Actor.getEnv().userId;
+const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
+  Actor.getEnv();
 
 export function createHarvestApiScraper({ concurrency }: { concurrency: number }) {
   let processedCounter = 0;
+  let scrapedCounter = 0;
 
   return {
     addJob: createConcurrentQueues(
@@ -20,6 +22,10 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
         index: number;
         total: number;
       }) => {
+        if (actorMaxPaidDatasetItems && scrapedCounter >= actorMaxPaidDatasetItems) {
+          console.warn(`Max scraped items reached: ${actorMaxPaidDatasetItems}`);
+          return;
+        }
         const params = new URLSearchParams({ ...query });
 
         console.info(`Starting item#${index + 1} ${JSON.stringify(query)}...`);
@@ -28,7 +34,12 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
         const response = await fetch(`https://api.harvest-api.com/${path}?${params.toString()}`, {
           headers: {
             'X-API-Key': process.env.HARVESTAPI_TOKEN!,
-            'x-apify-userid': USER_ID!,
+            'x-apify-userid': userId!,
+            'x-apify-actor-id': actorId!,
+            'x-apify-actor-run-id': actorRunId!,
+            'x-apify-actor-build-id': actorBuildId!,
+            'x-apify-memory-mbytes': String(memoryMbytes),
+            'x-apify-actor-max-paid-dataset-items': String(actorMaxPaidDatasetItems) || '0',
           },
         })
           .then((response) => response.json())
@@ -44,17 +55,18 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
           delete response.error.credits;
         }
 
-        processedCounter++;
         const elapsed = new Date().getTime() - timestamp.getTime();
+        processedCounter++;
 
         if (response.element?.id && response.status < 400) {
+          scrapedCounter++;
+          Actor.pushData(response);
+
           console.info(
             `Scraped item#${index + 1} ${JSON.stringify(query)}. Elapsed: ${(
               elapsed / 1000
             ).toFixed(2)}s. Progress: ${processedCounter}/${total}`,
           );
-          // Save headings to Dataset - a table-like storage.
-          await Actor.pushData(response);
         } else {
           console.error(
             `Error scraping item#${index + 1} ${JSON.stringify(query)}: ${JSON.stringify(
