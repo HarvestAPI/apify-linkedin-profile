@@ -58,9 +58,9 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
         const elapsed = new Date().getTime() - timestamp.getTime();
         processedCounter++;
 
-        if (response.element?.id && response.status < 400) {
+        if (response.element?.id) {
           scrapedCounter++;
-          Actor.pushData(response);
+          await Actor.pushData(response);
 
           console.info(
             `Scraped item#${index + 1} ${JSON.stringify(query)}. Elapsed: ${(
