@@ -12,13 +12,11 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
     addJob: createConcurrentQueues(
       concurrency,
       async ({
-        path,
         index,
         query,
         total,
       }: {
         query: Record<string, string>;
-        path: string;
         index: number;
         total: number;
       }) => {
@@ -31,7 +29,22 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
         console.info(`Starting item#${index + 1} ${JSON.stringify(query)}...`);
         const timestamp = new Date();
 
-        const response = await fetch(`https://api.harvest-api.com/${path}?${params.toString()}`, {
+        let path = 'linkedin/profile';
+
+        if (
+          query?.query &&
+          (query.query.includes('linkedin.com/company/') ||
+            query.query.includes('linkedin.com/school/') ||
+            query.query.includes('linkedin.com/organization/') ||
+            query.query.includes('linkedin.com/showcase/'))
+        ) {
+          path = 'linkedin/company';
+        }
+
+        const baseUrl = process.env.HARVESTAPI_URL || 'https://api.harvest-api.com';
+        const url = `${baseUrl}/${path}?${params.toString()}`;
+
+        const response = await fetch(url, {
           headers: {
             'X-API-Key': process.env.HARVESTAPI_TOKEN!,
             'x-apify-userid': userId!,

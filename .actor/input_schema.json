@@ -3,19 +3,28 @@
   "type": "object",
   "schemaVersion": 1,
   "properties": {
+    "queries": {
+      "title": "Target URLs",
+      "type": "array",
+      "editor": "stringList",
+      "description": "List of LinkedIn profile URLs or Public Identifiers (last part in the URL) to scrape.",
+      "prefill": [
+        "https://www.linkedin.com/in/williamhgates",
+        "https://www.linkedin.com/company/google"
+      ]
+    },
     "urls": {
+      "sectionCaption": "Advanced",
       "title": "Profile URLs",
       "type": "array",
       "editor": "stringList",
-      "description": "List of LinkedIn profile URLs to scrape. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs",
-      "prefill": ["https://www.linkedin.com/in/williamhgates"]
+      "description": "List of LinkedIn profile URLs to scrape. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs"
     },
     "publicIdentifiers": {
       "title": "Public Identifiers (last part in the URL)",
       "type": "array",
       "editor": "stringList",
-      "description": "List of LinkedIn Public Identifiers. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs",
-      "prefill": ["towhid-rahman"]
+      "description": "List of LinkedIn Public Identifiers. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs"
     },
     "profileIds": {
       "title": "LinkedIn Profile IDs",

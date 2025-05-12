@@ -1,6 +1,9 @@
 // Apify SDK - toolkit for building Apify Actors (Read more at https://docs.apify.com/sdk/js/).
 import { Actor } from 'apify';
 import { createHarvestApiScraper } from './utils/scraper.js';
+import { config } from 'dotenv';
+
+config();
 
 // this is ESM project, and as such, it requires you to specify extensions in your relative imports
 // read more about this here: https://nodejs.org/docs/latest-v18.x/api/esm.html#mandatory-file-extensions
@@ -16,6 +19,7 @@ interface Input {
   urls?: string[];
   publicIdentifiers?: string[];
   profileIds?: string[];
+  queries?: string[];
 }
 // Structure of input is defined in input_schema.json
 const input = await Actor.getInput<Input>();
@@ -25,6 +29,7 @@ const profiles = [
   ...(input.urls || []).map((url) => ({ url })),
   ...(input.publicIdentifiers || []).map((publicIdentifier) => ({ publicIdentifier })),
   ...(input.profileIds || []).map((profileId) => ({ profileId })),
+  ...(input.queries || []).map((query) => ({ query })),
 ];
 
 const profileScraper = createHarvestApiScraper({
@@ -35,7 +40,6 @@ const promises = profiles.map((profile, index) => {
   return profileScraper.addJob({
     query: profile,
     index,
-    path: 'linkedin/profile',
     total: profiles.length,
   });
 });
