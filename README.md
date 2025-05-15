@@ -28,7 +28,6 @@ Simply provide one of the following:
 - Recommendations and connections
 - Certifications and projects
 
-
 ### Sample output data
 
 Here is the example output of this actor:
@@ -457,4 +456,5 @@ The actor stores results in a dataset. You can export data in various formats su
 We continuously enhance our tools based on user feedback. If you encounter technical issues or have suggestions for improvement:
 
 - Create an issue on the actor’s Issues tab in Apify Console
-- Contacts us at contact@harvest-api.com
+- Chat with us on our [Discord server](https://discord.gg/TGA9k9u2gE)
+- Or contact us at contact@harvest-api.com
