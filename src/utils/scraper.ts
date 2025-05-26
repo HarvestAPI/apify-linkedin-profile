@@ -5,7 +5,15 @@ import { isCompanyUrl } from './url-parsers.js';
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
 
-export function createHarvestApiScraper({ concurrency }: { concurrency: number }) {
+export function createHarvestApiScraper({
+  concurrency,
+  state,
+}: {
+  concurrency: number;
+  state: {
+    datasetPushPromise?: Promise<void>;
+  };
+}) {
   let processedCounter = 0;
   let scrapedCounter = 0;
 
@@ -56,6 +64,8 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
             return { error };
           });
 
+        const isPaid = !!response.credits;
+
         delete response.user;
         delete response.credits;
         if (typeof response.error === 'object') {
@@ -66,9 +76,12 @@ export function createHarvestApiScraper({ concurrency }: { concurrency: number }
         const elapsed = new Date().getTime() - timestamp.getTime();
         processedCounter++;
 
+        if (isPaid) {
+          state.datasetPushPromise = Actor.pushData(response);
+        }
+
         if (response.element?.id) {
           scrapedCounter++;
-          await Actor.pushData(response);
 
           console.info(
             `Scraped item#${index + 1} ${JSON.stringify(query)}. Progress: ${processedCounter}/${total}`,

@@ -32,8 +32,13 @@ const profiles = [
   ...(input.queries || []).map((query) => ({ query })),
 ];
 
+const state: {
+  datasetPushPromise?: Promise<void>;
+} = {};
+
 const profileScraper = createHarvestApiScraper({
   concurrency: 6,
+  state,
 });
 
 const promises = profiles.map((profile, index) => {
@@ -47,6 +52,8 @@ const promises = profiles.map((profile, index) => {
 await Promise.all(promises).catch((error) => {
   console.error(`Error scraping profiles:`, error);
 });
+
+await state.datasetPushPromise;
 
 // Gracefully exit the Actor process. It's recommended to quit all Actors with an exit().
 await Actor.exit();
