@@ -41,7 +41,9 @@ const profileScraper = createHarvestApiScraper({
   state,
 });
 
-const promises = profiles.map((profile, index) => {
+const actorMaxPaidDatasetItems = Actor.getEnv().actorMaxPaidDatasetItems || 100000;
+
+const promises = profiles.slice(0, actorMaxPaidDatasetItems).map((profile, index) => {
   return profileScraper.addJob({
     query: profile,
     index,
