@@ -76,6 +76,10 @@ export function createHarvestApiScraper({
         const elapsed = new Date().getTime() - timestamp.getTime();
         processedCounter++;
 
+        if (actorMaxPaidDatasetItems && scrapedCounter >= actorMaxPaidDatasetItems) {
+          console.warn(`Max scraped items reached: ${actorMaxPaidDatasetItems}`);
+          return;
+        }
         if (isPaid) {
           state.datasetPushPromise = Actor.pushData(response);
         }
@@ -84,7 +88,7 @@ export function createHarvestApiScraper({
           scrapedCounter++;
 
           console.info(
-            `Scraped item#${index + 1} ${JSON.stringify(query)}. Progress: ${processedCounter}/${total}`,
+            `Scraped item#${index + 1} ${JSON.stringify(query)}. Elapsed: ${elapsed}. Progress: ${processedCounter}/${total}`,
           );
         } else {
           console.error(
