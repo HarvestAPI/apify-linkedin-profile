@@ -5,7 +5,7 @@ import { isCompanyUrl } from './url-parsers.js';
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
 
-export function createHarvestApiScraper({
+export async function createHarvestApiScraper({
   concurrency,
   state,
 }: {
@@ -16,6 +16,9 @@ export function createHarvestApiScraper({
 }) {
   let processedCounter = 0;
   let scrapedCounter = 0;
+
+  const client = Actor.newClient();
+  const user = userId ? await client.user(userId).get() : null;
 
   return {
     addJob: createConcurrentQueues(
@@ -56,6 +59,8 @@ export function createHarvestApiScraper({
             'x-apify-actor-build-id': actorBuildId!,
             'x-apify-memory-mbytes': String(memoryMbytes),
             'x-apify-actor-max-paid-dataset-items': String(actorMaxPaidDatasetItems) || '0',
+            'x-apify-username': user?.username || '',
+            'x-apify-user-is-paying': (user as Record<string, any> | null)?.isPaying,
           },
         })
           .then((response) => response.json())

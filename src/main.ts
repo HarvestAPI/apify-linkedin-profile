@@ -36,7 +36,7 @@ const state: {
   datasetPushPromise?: Promise<void>;
 } = {};
 
-const profileScraper = createHarvestApiScraper({
+const profileScraper = await createHarvestApiScraper({
   concurrency: 6,
   state,
 });
