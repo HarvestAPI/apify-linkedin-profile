@@ -1,6 +1,6 @@
 import { Actor } from 'apify';
 import { createConcurrentQueues } from './queue.js';
-import { isCompanyUrl } from './url-parsers.js';
+import { isProfileUrl } from './url-parsers.js';
 
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
@@ -43,7 +43,9 @@ export async function createHarvestApiScraper({
 
         let path = 'linkedin/profile';
 
-        if (isCompanyUrl(query.query) || isCompanyUrl(query.url)) {
+        if (isProfileUrl(query.query) || isProfileUrl(query.url)) {
+          path = 'linkedin/profile';
+        } else {
           path = 'linkedin/company';
         }
 
