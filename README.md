@@ -37,21 +37,16 @@ Here is the example output of this actor:
   "element": {
     "id": "ACoAACLevxsBfWQoDUYkHyCP2jzl81cDAvckQEI",
     "publicIdentifier": "towhid-rahman",
-    "lastName": "Rahman, PharmD",
     "firstName": "Towhid",
-    "websites": [],
+    "lastName": "Rahman, PharmD",
     "headline": "Pharmacology | Medical Science Liasion | Pharmacovigilence | Regulatory Toxicologist | Process Validation | Project Management | Leadership | Photography",
     "about": "I find myself at a unique crossroads where science meets compassion. With over eight years of experience in pharmacology, my journey has been fueled by a genuine desire to improve patient lives. Working at CVS Health has allowed me to interact with over 100 patients each week, guiding them through their health journeys not just by dispensing medications but by truly listening and building trust. It's incredibly rewarding to know I play a part in their well-being.\n\nIn my time as a Staff Pharmacist, I’ve exceeded daily production targets by 15% while ensuring timely service for more than 1,000 patients weekly. Collaborating with diverse pharmacy teams across Los Angeles has taught me the importance of understanding unique demographic needs. Whether it’s addressing medication safety or enhancing patient satisfaction through targeted counseling initiatives, I’m dedicated to creating solutions that resonate.\n\nOne of my proudest moments was during my internship at Harbor-UCLA Medical Center when I administered over 1,500 immunizations. This experience opened my eyes to the impact preventive healthcare can have on communities. By conducting health screenings and engaging patients directly about disease management education, I contributed to improved public health outcomes—something that drives me every day.\n\nOutside of my professional life, I have a passion for photography. This hobby allows me to express my creativity while honing my attention to detail—skills that translate seamlessly into my work. Capturing moments behind the lens reminds me how important it is to appreciate the little things in life.\n\nIf you're interested in discussing innovative approaches in product development or project management within the healthcare field—or if you simply want to chat about photography—I would love to connect! Feel free to reach out via email—let’s explore how we can make an impact together.\n\nSkills:\n- Patient Care Management\n- Medication Optimization\n- Process Validation\n- Project Management\n- Drug Utilization Review",
     "linkedinUrl": "https://www.linkedin.com/in/towhid-rahman",
-    "photo": "https://media.licdn.com/dms/image/v2/C5603AQEbgBlEFwrtUg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1567218693232?e=1751500800&v=beta&t=9gZ7yPJ4lF9pC-Pv558rcC_AAOvPLHBKTokY7Zgta8A",
-    "registeredAt": "2017-07-29T17:39:39.165Z",
-    "topSkills": "Pharmacology • Patient Counseling",
-    "connectionsCount": 257,
-    "followerCount": 260,
     "openToWork": false,
     "hiring": false,
+    "photo": "https://media.licdn.com/dms/image/v2/C5603AQEbgBlEFwrtUg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1567218693232?e=1755129600&v=beta&t=V3dxU-0W9KY3dckRPm2QYuBM7x8grMGZy-1oIwWbEEE",
     "location": {
-      "linkedinText": "Los Angeles, California, United States",
+      "linkedinText": "Los Angeles, CA",
       "countryCode": "US",
       "parsed": {
         "text": "Los Angeles, CA, United States",
@@ -63,6 +58,10 @@ Here is the example output of this actor:
         "city": "Los Angeles"
       }
     },
+    "registeredAt": "2017-07-29T17:39:39.165Z",
+    "topSkills": "Pharmacology • Patient Counseling",
+    "connectionsCount": 261,
+    "followerCount": 264,
     "currentPosition": [
       {
         "companyName": "CVS Health"
@@ -70,11 +69,11 @@ Here is the example output of this actor:
     ],
     "experience": [
       {
-        "location": null,
+        "location": "Thousand Oaks, California, United States",
         "companyLinkedinUrl": "https://www.linkedin.com/company/cvshealth/",
         "companyId": "4680",
         "companyUniversalName": "cvshealth",
-        "duration": "1 yr 5 mos",
+        "duration": "1 yr 6 mos",
         "companyName": "CVS Health",
         "description": "*Exceeded daily production targets by 15% in a high-demand pharmacy environment while ensuring timely service delivery to over 1000 patients each week without compromising quality or accuracy.\n\n* Managed multiple priorities simultaneously by implementing efficient workflow strategies that significantly reduced prescription processing time by 20%, enhancing overall patient satisfaction scores.\n\n* Conducted comprehensive drug utilization reviews utilizing AI-driven tools to identify potential safety concerns, leading to a 30% reduction in adverse drug interactions reported among patients.\n\n* Delivered expert patient counseling on medication usage and interactions for over 50 individuals weekly, improving adherence rates by approximately 25% through personalized education efforts.\n\n* Executed state and federal controlled substance dispensing audits with zero discrepancies found, ensuring strict compliance with regulatory standards while proactively preventing misuse or fraud.",
         "position": "Staff Pharmacist | Prescription Dispensing, Drug Utilization Review, Regulatory Compliance",
@@ -88,7 +87,7 @@ Here is the example output of this actor:
         }
       },
       {
-        "location": null,
+        "location": "Los Angeles, California, United States",
         "companyLinkedinUrl": "https://www.linkedin.com/company/cvshealth/",
         "companyId": "4680",
         "companyUniversalName": "cvshealth",
@@ -108,7 +107,7 @@ Here is the example output of this actor:
         }
       },
       {
-        "location": null,
+        "location": "Los Angeles, California, United States",
         "companyLinkedinUrl": "https://www.linkedin.com/company/cvshealth/",
         "companyId": "4680",
         "companyUniversalName": "cvshealth",
@@ -128,7 +127,7 @@ Here is the example output of this actor:
         }
       },
       {
-        "location": "California, United States · Hybrid",
+        "location": "California, United States",
         "companyLinkedinUrl": "https://www.linkedin.com/search/results/all/?keywords=VA+Greater+Los+Angeles+Healthcare+System",
         "companyName": "VA Greater Los Angeles Healthcare System",
         "duration": "5 mos",
@@ -147,7 +146,7 @@ Here is the example output of this actor:
         }
       },
       {
-        "location": "California, United States · Hybrid",
+        "location": "California, United States",
         "companyLinkedinUrl": "https://www.linkedin.com/company/38115891/",
         "companyId": "38115891",
         "companyName": "Harbor-UCLA Medical Center",
@@ -245,10 +244,31 @@ Here is the example output of this actor:
     ],
     "education": [
       {
-        "title": "Western University of Health Sciences",
-        "period": "Aug 2018 - May 2022",
-        "link": "https://www.linkedin.com/company/26345/",
-        "degree": "Doctor of Pharmacy, Pharmacy",
+        "schoolName": "Western University of Health Sciences",
+        "schoolLinkedinUrl": "https://www.linkedin.com/company/26345/",
+        "degree": "Doctor of Pharmacy",
+        "fieldOfStudy": "Pharmacy",
+        "skills": [
+          "Healthcare System Knowledge",
+          "Relationship Building",
+          "Pharmacodynamics",
+          "Scientific Communications",
+          "Cross-functional Team Leadership",
+          "Research Skills",
+          "Professional Networking",
+          "Expense Reports",
+          "Presentation Skills",
+          "Laboratory Skills",
+          "Scientific Discussion",
+          "Medical Terminology",
+          "Collaborative Problem Solving",
+          "Public Speaking",
+          "Clinical Trials",
+          "Drug Utilization Review",
+          "Pharmacology",
+          "Data Analysis",
+          "Project Management"
+        ],
         "startDate": {
           "month": "Aug",
           "year": 2018,
@@ -258,13 +278,29 @@ Here is the example output of this actor:
           "month": "May",
           "year": 2022,
           "text": "May 2022"
-        }
+        },
+        "period": "Aug 2018 - May 2022"
       },
       {
-        "title": "KTH Royal Institute of Technology",
-        "period": "Aug 2007 - Jan 2011",
-        "link": "https://www.linkedin.com/company/4814/",
-        "degree": "Master of Science, Biotechnology",
+        "schoolName": "KTH Royal Institute of Technology",
+        "schoolLinkedinUrl": "https://www.linkedin.com/company/4814/",
+        "degree": "Master of Science",
+        "fieldOfStudy": "Biotechnology",
+        "skills": [
+          "Scientific Communications",
+          "Cross-functional Team Leadership",
+          "Research Skills",
+          "Professional Networking",
+          "Presentation Skills",
+          "Laboratory Skills",
+          "Scientific Discussion",
+          "Collaborative Problem Solving",
+          "Public Speaking",
+          "Clinical Research",
+          "Data Analysis",
+          "Project Management",
+          "Literature Reviews"
+        ],
         "startDate": {
           "month": "Aug",
           "year": 2007,
@@ -274,7 +310,62 @@ Here is the example output of this actor:
           "month": "Jan",
           "year": 2011,
           "text": "Jan 2011"
-        }
+        },
+        "period": "Aug 2007 - Jan 2011"
+      },
+      {
+        "schoolName": "Khulna University",
+        "schoolLinkedinUrl": "https://www.linkedin.com/company/9537234/",
+        "degree": "Bachelor of Science",
+        "fieldOfStudy": "Biotechnology and Genetic Engineering",
+        "skills": [
+          "Scientific Communications",
+          "Cross-functional Team Leadership",
+          "Professional Networking",
+          "Presentation Skills",
+          "Laboratory Skills",
+          "Scientific Discussion",
+          "Public Speaking",
+          "Data Analysis",
+          "Project Management"
+        ],
+        "startDate": {
+          "month": "Aug",
+          "year": 2001,
+          "text": "Aug 2001"
+        },
+        "endDate": {
+          "month": "May",
+          "year": 2005,
+          "text": "May 2005"
+        },
+        "period": "Aug 2001 - May 2005"
+      },
+      {
+        "schoolName": "Los Angeles Pierce College",
+        "schoolLinkedinUrl": "https://www.linkedin.com/company/231552/",
+        "degree": "Associate of Science",
+        "fieldOfStudy": null,
+        "skills": [
+          "Cross-functional Team Leadership",
+          "Professional Networking",
+          "Presentation Skills",
+          "Laboratory Skills",
+          "Scientific Discussion",
+          "Collaborative Problem Solving",
+          "Public Speaking",
+          "Data Analysis",
+          "Project Management"
+        ],
+        "startDate": {
+          "year": 2015,
+          "text": "2015"
+        },
+        "endDate": {
+          "year": 2018,
+          "text": "2018"
+        },
+        "period": "2015 - 2018"
       }
     ],
     "certifications": [
@@ -294,10 +385,196 @@ Here is the example output of this actor:
     "receivedRecommendations": [],
     "skills": [
       {
-        "name": "Drug Therapy Optimization"
+        "name": "Drug Therapy Optimization",
+        "positions": [
+          "Support Pharmacist | Patient Care Management, Medication Optimization, Healthcare Collaboration at CVS Health"
+        ]
       },
       {
-        "name": "Medication Safety"
+        "name": "Medication Safety",
+        "positions": ["2 experiences at CVS Health"]
+      },
+      {
+        "name": "Drug Particle Size Analysis"
+      },
+      {
+        "name": "Pharmaceutical Industry Consultation"
+      },
+      {
+        "name": "Training Development"
+      },
+      {
+        "name": "Cross-Functional Collaboration"
+      },
+      {
+        "name": "Medication Dispensing",
+        "positions": [
+          "Staff Pharmacist | Prescription Dispensing, Drug Utilization Review, Regulatory Compliance at CVS Health"
+        ]
+      },
+      {
+        "name": "Regulatory Compliance",
+        "positions": [
+          "Staff Pharmacist | Prescription Dispensing, Drug Utilization Review, Regulatory Compliance at CVS Health"
+        ]
+      },
+      {
+        "name": "Cultural Awareness",
+        "positions": [
+          "Staff Pharmacist | Prescription Dispensing, Drug Utilization Review, Regulatory Compliance at CVS Health"
+        ]
+      },
+      {
+        "name": "Resource Optimization",
+        "positions": [
+          "Staff Pharmacist | Prescription Dispensing, Drug Utilization Review, Regulatory Compliance at CVS Health"
+        ]
+      },
+      {
+        "name": "Active Listening",
+        "positions": [
+          "Staff Pharmacist | Prescription Dispensing, Drug Utilization Review, Regulatory Compliance at CVS Health"
+        ]
+      },
+      {
+        "name": "Workload Prioritization"
+      },
+      {
+        "name": "Certified Immunizer",
+        "positions": [
+          "Staff Pharmacist | Prescription Dispensing, Drug Utilization Review, Regulatory Compliance at CVS Health"
+        ],
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Interpersonal Communication",
+        "positions": [
+          "Staff Pharmacist | Prescription Dispensing, Drug Utilization Review, Regulatory Compliance at CVS Health"
+        ]
+      },
+      {
+        "name": "Scientific Liaison",
+        "positions": [
+          "Staff Pharmacist | Prescription Dispensing, Drug Utilization Review, Regulatory Compliance at CVS Health"
+        ]
+      },
+      {
+        "name": "Management"
+      },
+      {
+        "name": "Healthcare System Knowledge",
+        "positions": [
+          "6 experiences across CVS Health and 3 other companies",
+          "Western University of Health Sciences"
+        ]
+      },
+      {
+        "name": "Cross-functional Team Leadership",
+        "positions": [
+          "4 educational experiences at Western University of Health Sciences and 3 other schools"
+        ]
+      },
+      {
+        "name": "Customer Engagement"
+      },
+      {
+        "name": "High-quality Actionable Insight"
+      },
+      {
+        "name": "Relationship Building",
+        "positions": ["Western University of Health Sciences"]
+      },
+      {
+        "name": "Professional Networking",
+        "positions": [
+          "4 experiences across CVS Health and 3 other companies",
+          "4 educational experiences at Western University of Health Sciences and 3 other schools"
+        ]
+      },
+      {
+        "name": "Public Speaking",
+        "positions": [
+          "4 educational experiences at Western University of Health Sciences and 3 other schools"
+        ],
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Teamwork",
+        "positions": [
+          "Certified Pharmacy Technician | Prescription Dispensing, Inventory Management, HIPAA Compliance at CVS Health"
+        ],
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Collaborative Problem Solving",
+        "positions": [
+          "4 experiences across CVS Health and 2 other companies",
+          "3 educational experiences at Western University of Health Sciences and 2 other schools"
+        ],
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Collaboration in Healthcare",
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Microsoft Excel",
+        "positions": ["Excel Formulas and Functions Quick Tips"]
+      },
+      {
+        "name": "Scientific Communications",
+        "positions": [
+          "6 experiences across CVS Health and 4 other companies",
+          "3 educational experiences at Western University of Health Sciences and 2 other schools"
+        ]
+      },
+      {
+        "name": "Clinical Research",
+        "positions": ["KTH Royal Institute of Technology"],
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Laboratory Skills",
+        "positions": [
+          "4 educational experiences at Western University of Health Sciences and 3 other schools"
+        ],
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Data Analysis",
+        "positions": [
+          "4 educational experiences at Western University of Health Sciences and 3 other schools"
+        ],
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Clinical Trials",
+        "positions": ["Western University of Health Sciences"],
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Project Management",
+        "positions": [
+          "3 experiences across CVS Health and 2 other companies",
+          "4 educational experiences at Western University of Health Sciences and 3 other schools"
+        ],
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Literature Reviews",
+        "positions": ["KTH Royal Institute of Technology"],
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Research Proposals",
+        "endorsements": "1 endorsement"
+      },
+      {
+        "name": "Healthcare Compliance",
+        "positions": [
+          "Support Pharmacist | Patient Care Management, Medication Optimization, Healthcare Collaboration at CVS Health"
+        ],
+        "endorsements": "1 endorsement"
       }
     ],
     "languages": [
@@ -352,20 +629,28 @@ Here is the example output of this actor:
     "verified": true,
     "moreProfiles": [
       {
-        "id": "ACoAAC_2Mh4B-jT1s51XIyXnTBVVpqjvD8Q9tlk",
-        "firstName": "Teresa",
-        "lastName": "Tong-Fong, PharmD, MBA",
-        "position": "Regional Pharmacy Director - Pharmacy Quality & Medication Safety",
-        "publicIdentifier": "teresa-tong-fong-pharm-d",
-        "linkedinUrl": "https://www.linkedin.com/in/teresa-tong-fong-pharm-d"
+        "id": "ACoAAD44Zt4Bg9sfgRBnzr2pgESPvQ71gCUB0Co",
+        "firstName": "Busisiwe",
+        "lastName": "Mtsweni",
+        "position": "Area Manager at Nestlé",
+        "publicIdentifier": "busisiwe-mtsweni-47a717251",
+        "linkedinUrl": "https://www.linkedin.com/in/busisiwe-mtsweni-47a717251"
       },
       {
-        "id": "ACoAAC__wVcBn23Yc4AnbMI19OhyiARnjWKGE14",
-        "firstName": "Thuy",
-        "lastName": "Tran, MSN, FNP-C",
-        "position": "Principal Medical Safety Specialist at Medtronic Neurovascular",
-        "publicIdentifier": "thuy-tran-msn-fnp-c-5b38341a5",
-        "linkedinUrl": "https://www.linkedin.com/in/thuy-tran-msn-fnp-c-5b38341a5"
+        "id": "ACoAADD1yrsBRUitJIXdnGOfB2TwpRfCSjWI-KY",
+        "firstName": "Richard",
+        "lastName": "Dlamini",
+        "position": "Area manager at clothing junction",
+        "publicIdentifier": "richard-dlamini-7b710b1ab",
+        "linkedinUrl": "https://www.linkedin.com/in/richard-dlamini-7b710b1ab"
+      },
+      {
+        "id": "ACoAABW0EAkB78uwQU61oPr3pB9I9j0d1KGGtaE",
+        "firstName": "Mercedes",
+        "lastName": "Ramokadi BCOM (STI)",
+        "position": "Area Manager",
+        "publicIdentifier": "mercedes-ramokadi-bcom-sti-9a1b3aa1",
+        "linkedinUrl": "https://www.linkedin.com/in/mercedes-ramokadi-bcom-sti-9a1b3aa1"
       },
       {
         "id": "ACoAAC2r33QBz4r6f1fJVsFMMmNxC5OvzyfSMQk",
@@ -375,13 +660,6 @@ Here is the example output of this actor:
         "linkedinUrl": "https://www.linkedin.com/in/parastou-divdad-130741194"
       },
       {
-        "id": "ACoAADRRD_IBvWWIk4nSfSKZGwqKttK4NF_eNtU",
-        "firstName": "Jesus",
-        "lastName": "Rottier",
-        "publicIdentifier": "jesus-rottier",
-        "linkedinUrl": "https://www.linkedin.com/in/jesus-rottier"
-      },
-      {
         "id": "ACoAAAQPJU8BLpBimqo7xv1VXFyF8lc6rIEfQP4",
         "firstName": "Jessica",
         "lastName": "Beck",
@@ -389,19 +667,19 @@ Here is the example output of this actor:
         "linkedinUrl": "https://www.linkedin.com/in/jessica-beck-6939821a"
       },
       {
-        "id": "ACoAACbEw4gBFzRhHwIEJJREGHciYLuWroAP8Qg",
-        "firstName": "Athena",
-        "lastName": "Kepler DVM CCAS",
-        "position": "Veterinarian, Entrepreneur",
-        "publicIdentifier": "athena-kepler-dvm-ccas-a349b1161",
-        "linkedinUrl": "https://www.linkedin.com/in/athena-kepler-dvm-ccas-a349b1161"
+        "id": "ACoAAAWay-4BX0B6y4b_og8rkumk5osETFgyLz0",
+        "firstName": "Nousheen",
+        "lastName": "Nadjmabadi",
+        "publicIdentifier": "nousheen-nadjmabadi-ba65a727",
+        "linkedinUrl": "https://www.linkedin.com/in/nousheen-nadjmabadi-ba65a727"
       },
       {
-        "id": "ACoAABM8t8gBlF9jEWfE7BGK1yyG1sPkUv5YeyQ",
-        "firstName": "Md",
-        "lastName": "Solaiman",
-        "publicIdentifier": "md-solaiman-5a010690",
-        "linkedinUrl": "https://www.linkedin.com/in/md-solaiman-5a010690"
+        "id": "ACoAADRogc0BX2D90A4f03HhbWXsh-fu05cC-1s",
+        "firstName": "Nomvula ",
+        "lastName": "Shabangu",
+        "position": "Social media Specialist at Nestlé | Communication & Media | UJ Alumni",
+        "publicIdentifier": "nomvula-shabangu-551569206",
+        "linkedinUrl": "https://www.linkedin.com/in/nomvula-shabangu-551569206"
       },
       {
         "id": "ACoAAC7OFXIBzudKTqDYxiiX5CeaFclgy0k47eA",
@@ -411,28 +689,27 @@ Here is the example output of this actor:
         "linkedinUrl": "https://www.linkedin.com/in/nicolet-deeb-pharmd-rph-756b9319a"
       },
       {
-        "id": "ACoAAEwIZnYBxk-EDOs1ivFqmLTaBhF4PohSEiU",
-        "firstName": "Heverley",
-        "lastName": "Grano",
-        "position": "Milling and planing machine tender at Kelly and Cohen",
-        "publicIdentifier": "heverley-grano-49a2512b7",
-        "linkedinUrl": "https://www.linkedin.com/in/heverley-grano-49a2512b7"
+        "id": "ACoAAFuEcukBqN_mMPGtdFcYjIC4Bc_PwcflePY",
+        "firstName": "Dustin",
+        "lastName": "Vazquez",
+        "position": "--",
+        "publicIdentifier": "dustin-vazquez-74925536a",
+        "linkedinUrl": "https://www.linkedin.com/in/dustin-vazquez-74925536a"
       },
       {
-        "id": "ACoAADbYjskBd7f8BVD5acdfWdlBGRq6nr0kTBY",
-        "firstName": "Alivia",
-        "lastName": "Stoddard, DMD",
-        "position": "Dentist at Belleville Smiles in Belleville, Michigan\n\nBelleville Smiles - Family Dentist \n35 Main St #102, Belleville, MI 48111\n  \nCall to schedule today! (734) 697-3011",
-        "publicIdentifier": "alivia-stoddard-dmd-1a11b1218",
-        "linkedinUrl": "https://www.linkedin.com/in/alivia-stoddard-dmd-1a11b1218"
+        "id": "ACoAABXYwDkBibNr9Kusy6Gv9z_JXi4s4teBaDs",
+        "firstName": "Ahmed",
+        "lastName": "Al Hossary",
+        "publicIdentifier": "ahmed-al-hossary-3098baa2",
+        "linkedinUrl": "https://www.linkedin.com/in/ahmed-al-hossary-3098baa2"
       },
       {
-        "id": "ACoAACMw8Z0BIJlExyvn90Sq-CT9V01ILWaj1vI",
-        "firstName": "Daniel Cory",
-        "lastName": "Short",
-        "position": "Hospitalist, CMO Logan Health",
-        "publicIdentifier": "daniel-cory-short-651888145",
-        "linkedinUrl": "https://www.linkedin.com/in/daniel-cory-short-651888145"
+        "id": "ACoAABGc1FkB0oBJsUNzco5XM6evUBeVGJUn1Fo",
+        "firstName": "Mandla",
+        "lastName": "Mathebula",
+        "position": "Area Sales Manager",
+        "publicIdentifier": "mandla-mathebula-649b6182",
+        "linkedinUrl": "https://www.linkedin.com/in/mandla-mathebula-649b6182"
       }
     ]
   },
