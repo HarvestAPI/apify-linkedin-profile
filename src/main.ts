@@ -2,6 +2,7 @@
 import { Actor } from 'apify';
 import { createHarvestApiScraper } from './utils/scraper.js';
 import { config } from 'dotenv';
+import { styleText } from 'node:util';
 
 config();
 
@@ -36,14 +37,51 @@ const state: {
   datasetPushPromise?: Promise<void>;
 } = {};
 
+const { userId } = Actor.getEnv();
+const client = Actor.newClient();
+
+const user = userId ? await client.user(userId).get() : null;
+const isPaying = (user as Record<string, any> | null)?.isPaying === false ? false : true;
+let maxItems = Actor.getEnv().actorMaxPaidDatasetItems || 100000;
+
+let totalRuns = 0;
+if (userId && !isPaying) {
+  const store = await Actor.openKeyValueStore('linkedin-profile-scraper-run-counter-store');
+  totalRuns = Number(await store.getValue(userId)) || 0;
+  totalRuns++;
+  await store.setValue(userId, totalRuns);
+}
+
+let isFreeUserExceeding = false;
+const logFreeUserExceeding = () =>
+  console.warn(
+    styleText('bgYellow', ' [WARNING] ') +
+      ' Free users are limited up to 10 items per run. Please upgrade to a paid plan to scrape more items.',
+  );
+
+if (!isPaying) {
+  if (totalRuns > 15) {
+    console.warn(
+      styleText('bgYellow', ' [WARNING] ') +
+        ' Free users are limited to 15 runs. Please upgrade to a paid plan to run more.',
+    );
+    await Actor.exit();
+    process.exit(0);
+  }
+
+  if (maxItems > 10) {
+    isFreeUserExceeding = true;
+    maxItems = 10;
+    logFreeUserExceeding();
+  }
+}
+
 const profileScraper = await createHarvestApiScraper({
   concurrency: 6,
   state,
 });
 
-const actorMaxPaidDatasetItems = Actor.getEnv().actorMaxPaidDatasetItems || 100000;
-
-const promises = profiles.slice(0, actorMaxPaidDatasetItems).map((profile, index) => {
+const promises = profiles.slice(0, maxItems).map((profile, index) => {
   return profileScraper.addJob({
     query: profile,
     index,
@@ -56,6 +94,10 @@ await Promise.all(promises).catch((error) => {
 });
 
 await state.datasetPushPromise;
+
+if (isFreeUserExceeding) {
+  logFreeUserExceeding();
+}
 
 // Gracefully exit the Actor process. It's recommended to quit all Actors with an exit().
 await Actor.exit();
