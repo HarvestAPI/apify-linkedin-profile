@@ -42,7 +42,12 @@ const client = Actor.newClient();
 
 const user = userId ? await client.user(userId).get() : null;
 const isPaying = (user as Record<string, any> | null)?.isPaying === false ? false : true;
-let maxItems = Actor.getEnv().actorMaxPaidDatasetItems || 100000;
+const maxItems = Actor.getEnv().actorMaxPaidDatasetItems || 100000;
+
+let itemsToScrape = profiles.length;
+if (itemsToScrape > maxItems) {
+  itemsToScrape = maxItems;
+}
 
 let totalRuns = 0;
 if (userId && !isPaying) {
@@ -69,9 +74,9 @@ if (!isPaying) {
     process.exit(0);
   }
 
-  if (maxItems > 10) {
+  if (itemsToScrape > 10) {
     isFreeUserExceeding = true;
-    maxItems = 10;
+    itemsToScrape = 10;
     logFreeUserExceeding();
   }
 }
@@ -81,7 +86,7 @@ const profileScraper = await createHarvestApiScraper({
   state,
 });
 
-const promises = profiles.slice(0, maxItems).map((profile, index) => {
+const promises = profiles.slice(0, itemsToScrape).map((profile, index) => {
   return profileScraper.addJob({
     query: profile,
     index,
