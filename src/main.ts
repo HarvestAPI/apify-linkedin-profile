@@ -64,22 +64,22 @@ const logFreeUserExceeding = () =>
       ' Free users are limited up to 10 items per run. Please upgrade to a paid plan to scrape more items.',
   );
 
-if (!isPaying) {
-  if (totalRuns > 15) {
-    console.warn(
-      styleText('bgYellow', ' [WARNING] ') +
-        ' Free users are limited to 15 runs. Please upgrade to a paid plan to run more.',
-    );
-    await Actor.exit();
-    process.exit(0);
-  }
+// if (!isPaying) {
+//   if (totalRuns > 15) {
+//     console.warn(
+//       styleText('bgYellow', ' [WARNING] ') +
+//         ' Free users are limited to 15 runs. Please upgrade to a paid plan to run more.',
+//     );
+//     await Actor.exit();
+//     process.exit(0);
+//   }
 
-  if (itemsToScrape > 10) {
-    isFreeUserExceeding = true;
-    itemsToScrape = 10;
-    logFreeUserExceeding();
-  }
-}
+//   if (itemsToScrape > 10) {
+//     isFreeUserExceeding = true;
+//     itemsToScrape = 10;
+//     logFreeUserExceeding();
+//   }
+// }
 
 const profileScraper = await createHarvestApiScraper({
   concurrency: 6,
