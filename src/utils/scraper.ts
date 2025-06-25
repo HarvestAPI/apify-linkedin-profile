@@ -71,7 +71,7 @@ export async function createHarvestApiScraper({
             return { error };
           });
 
-        const isPaid = !!response.credits;
+        const isPaid = !!response.cost;
 
         delete response.user;
         delete response.credits;
