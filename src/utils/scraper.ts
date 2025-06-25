@@ -74,10 +74,10 @@ export async function createHarvestApiScraper({
         const isPaid = !!response.cost;
 
         delete response.user;
-        delete response.credits;
+        delete response.cost;
         if (typeof response.error === 'object') {
           delete response.error.user;
-          delete response.error.credits;
+          delete response.error.cost;
         }
 
         const elapsed = new Date().getTime() - timestamp.getTime();
