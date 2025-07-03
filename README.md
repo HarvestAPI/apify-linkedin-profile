@@ -1,13 +1,15 @@
-## LinkedIn Profile Details Data Extractor
+## LinkedIn Profile Details Extractor and Email Finder
 
-Our powerful tool helps you gather detailed professional information from LinkedIn profiles without compromising security or violating platform policies.
+Our powerful tool allows you to gather detailed information from LinkedIn profiles while prioritizing security and adhering to platform policies. You can collect complete data from the experience, education, and skills sections of any profile.
+
+Optionally, our tool can also try to find **email addresses** for LinkedIn profiles, which is ideal for lead generation, recruitment, and networking. We perform comprehensive validation checks, including SMTP checks, to ensure the email addresses are valid and deliverable, resulting in low bounce rates and high deliverability.
 
 ### Key Benefits
 
 - No cookies or account required: Access profile data without sharing cookies or risking account restrictions
-- Low pricing: $4 per 1k profiles.
-- Fast response times deliver data in seconds.
-- No caching, fresh data.
+- Low pricing: $4 per 1000 detailed profiles or $10 per 1000 profiles with email address search.
+- Fast response times.
+- Real-time scraping - fresh data.
 - Concurrency: each actor works scraping 6 profiles at a time.
 
 ## How It Works

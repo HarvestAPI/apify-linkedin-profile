@@ -110,7 +110,7 @@ if (!isPaying && state.profileScraperMode === ProfileScraperMode.EMAIL) {
 }
 
 const profileScraper = await createHarvestApiScraper({
-  concurrency: 6,
+  concurrency: itemsToScrape > 20 && state.isPaying ? 8 : 6,
   state,
 });
 

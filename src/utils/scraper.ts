@@ -24,13 +24,17 @@ export async function createHarvestApiScraper({
   const client = Actor.newClient();
   const user = userId ? await client.user(userId).get() : null;
 
-  const pushItem = async (item: any) => {
+  const pushItem = async (item: any, payments: string[]) => {
     if (state.isPayPerEvent) {
       if (state.profileScraperMode === ProfileScraperMode.FULL) {
         state.datasetPushPromise = Actor.pushData(item, 'profile');
       }
       if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
-        state.datasetPushPromise = Actor.pushData(item, 'profile_with_email');
+        if (payments.includes('linkedinProfileWithEmail')) {
+          state.datasetPushPromise = Actor.pushData(item, 'profile_with_email');
+        } else {
+          state.datasetPushPromise = Actor.pushData(item, 'profile');
+        }
       }
     } else {
       state.datasetPushPromise = Actor.pushData(item);
@@ -53,7 +57,10 @@ export async function createHarvestApiScraper({
           console.warn(`Max scraped items reached: ${actorMaxPaidDatasetItems}`);
           return;
         }
-        const params = new URLSearchParams({ ...query });
+        const params = new URLSearchParams({
+          ...query,
+          findEmail: String(state.profileScraperMode === ProfileScraperMode.EMAIL) ? 'true' : '',
+        });
 
         console.info(`Starting item#${index + 1} ${JSON.stringify(query)}...`);
         const timestamp = new Date();
@@ -89,6 +96,7 @@ export async function createHarvestApiScraper({
           });
 
         const isPaid = !!response.cost;
+        const payments: string[] = response.payments || [];
 
         delete response.user;
         delete response.cost;
@@ -107,7 +115,7 @@ export async function createHarvestApiScraper({
           return;
         }
         if (isPaid) {
-          pushItem(response);
+          pushItem(response, payments);
         }
 
         if (response.element?.id) {
