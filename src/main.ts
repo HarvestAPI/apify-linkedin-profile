@@ -16,7 +16,21 @@ await Actor.init();
 
 // console.log(`userId:`, Actor.getEnv().userId);
 
+export enum ProfileScraperMode {
+  FULL,
+  EMAIL,
+}
+const profileScraperModeInputMap1: Record<string, ProfileScraperMode> = {
+  'Profile details ($4 per 1k)': ProfileScraperMode.FULL,
+  'Profile details + find email ($10 per 1k)': ProfileScraperMode.EMAIL,
+};
+const profileScraperModeInputMap2: Record<string, ProfileScraperMode> = {
+  '2': ProfileScraperMode.FULL,
+  '3': ProfileScraperMode.EMAIL,
+};
+
 interface Input {
+  profileScraperMode: string;
   urls?: string[];
   publicIdentifiers?: string[];
   profileIds?: string[];
@@ -33,9 +47,18 @@ const profiles = [
   ...(input.queries || []).map((query) => ({ query })),
 ];
 
-const state: {
+export const state: {
   datasetPushPromise?: Promise<void>;
-} = {};
+  profileScraperMode: ProfileScraperMode;
+  isPaying: boolean;
+  isPayPerEvent?: boolean;
+} = {
+  isPaying: true, // default to true, in case we cannot determine the user status, and to not limit paid users
+  profileScraperMode:
+    profileScraperModeInputMap1[input.profileScraperMode] ??
+    profileScraperModeInputMap2[input.profileScraperMode] ??
+    ProfileScraperMode.FULL,
+};
 
 const { userId } = Actor.getEnv();
 const client = Actor.newClient();
@@ -43,6 +66,11 @@ const client = Actor.newClient();
 const user = userId ? await client.user(userId).get() : null;
 const isPaying = (user as Record<string, any> | null)?.isPaying === false ? false : true;
 const maxItems = Actor.getEnv().actorMaxPaidDatasetItems || 100000;
+const cm = Actor.getChargingManager();
+const pricingInfo = cm.getPricingInfo();
+
+state.isPaying = isPaying;
+state.isPayPerEvent = pricingInfo.isPayPerEvent;
 
 let itemsToScrape = profiles.length;
 if (itemsToScrape > maxItems) {
@@ -61,25 +89,25 @@ let isFreeUserExceeding = false;
 const logFreeUserExceeding = () =>
   console.warn(
     styleText('bgYellow', ' [WARNING] ') +
-      ' Free users are limited up to 10 items per run. Please upgrade to a paid plan to scrape more items.',
+      ' Free users are limited up to 5 items per run. Please upgrade to a paid plan to scrape more items.',
   );
 
-// if (!isPaying) {
-//   if (totalRuns > 15) {
-//     console.warn(
-//       styleText('bgYellow', ' [WARNING] ') +
-//         ' Free users are limited to 15 runs. Please upgrade to a paid plan to run more.',
-//     );
-//     await Actor.exit();
-//     process.exit(0);
-//   }
+if (!isPaying && state.profileScraperMode === ProfileScraperMode.EMAIL) {
+  if (totalRuns > 15) {
+    console.warn(
+      styleText('bgYellow', ' [WARNING] ') +
+        ' Free users are limited to 15 runs. Please upgrade to a paid plan to run more.',
+    );
+    await Actor.exit();
+    process.exit(0);
+  }
 
-//   if (itemsToScrape > 10) {
-//     isFreeUserExceeding = true;
-//     itemsToScrape = 10;
-//     logFreeUserExceeding();
-//   }
-// }
+  if (itemsToScrape > 5) {
+    isFreeUserExceeding = true;
+    itemsToScrape = 5;
+    logFreeUserExceeding();
+  }
+}
 
 const profileScraper = await createHarvestApiScraper({
   concurrency: 6,

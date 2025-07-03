@@ -1,6 +1,7 @@
 import { Actor } from 'apify';
 import { createConcurrentQueues } from './queue.js';
 import { isProfileUrl } from './url-parsers.js';
+import { ProfileScraperMode } from '../main.js';
 
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
@@ -11,7 +12,10 @@ export async function createHarvestApiScraper({
 }: {
   concurrency: number;
   state: {
-    datasetPushPromise?: Promise<void>;
+    datasetPushPromise?: Promise<any>;
+    profileScraperMode: ProfileScraperMode;
+    isPaying: boolean;
+    isPayPerEvent?: boolean;
   };
 }) {
   let processedCounter = 0;
@@ -19,6 +23,19 @@ export async function createHarvestApiScraper({
 
   const client = Actor.newClient();
   const user = userId ? await client.user(userId).get() : null;
+
+  const pushItem = async (item: any) => {
+    if (state.isPayPerEvent) {
+      if (state.profileScraperMode === ProfileScraperMode.FULL) {
+        state.datasetPushPromise = Actor.pushData(item, 'profile');
+      }
+      if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
+        state.datasetPushPromise = Actor.pushData(item, 'profile_with_email');
+      }
+    } else {
+      state.datasetPushPromise = Actor.pushData(item);
+    }
+  };
 
   return {
     addJob: createConcurrentQueues(
@@ -75,9 +92,11 @@ export async function createHarvestApiScraper({
 
         delete response.user;
         delete response.cost;
+        delete response.payments;
         if (typeof response.error === 'object') {
           delete response.error.user;
           delete response.error.cost;
+          delete response.error.payments;
         }
 
         const elapsed = new Date().getTime() - timestamp.getTime();
@@ -88,7 +107,7 @@ export async function createHarvestApiScraper({
           return;
         }
         if (isPaid) {
-          state.datasetPushPromise = Actor.pushData(response);
+          pushItem(response);
         }
 
         if (response.element?.id) {
