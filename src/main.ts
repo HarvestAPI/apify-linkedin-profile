@@ -17,8 +17,8 @@ await Actor.init();
 // console.log(`userId:`, Actor.getEnv().userId);
 
 export enum ProfileScraperMode {
-  FULL,
-  EMAIL,
+  FULL = 'FULL',
+  EMAIL = 'EMAIL',
 }
 const profileScraperModeInputMap1: Record<string, ProfileScraperMode> = {
   'Profile details ($4 per 1k)': ProfileScraperMode.FULL,

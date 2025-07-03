@@ -57,9 +57,10 @@ export async function createHarvestApiScraper({
           console.warn(`Max scraped items reached: ${actorMaxPaidDatasetItems}`);
           return;
         }
+
         const params = new URLSearchParams({
           ...query,
-          findEmail: String(state.profileScraperMode === ProfileScraperMode.EMAIL) ? 'true' : '',
+          findEmail: state.profileScraperMode === ProfileScraperMode.EMAIL ? 'true' : '',
         });
 
         console.info(`Starting item#${index + 1} ${JSON.stringify(query)}...`);
