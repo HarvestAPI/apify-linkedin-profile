@@ -22,7 +22,7 @@ export enum ProfileScraperMode {
 }
 const profileScraperModeInputMap1: Record<string, ProfileScraperMode> = {
   'Profile details no email ($4 per 1k)': ProfileScraperMode.FULL,
-  'Profile details + find email ($10 per 1k)': ProfileScraperMode.EMAIL,
+  'Profile details + email search ($10 per 1k)': ProfileScraperMode.EMAIL,
 };
 const profileScraperModeInputMap2: Record<string, ProfileScraperMode> = {
   '2': ProfileScraperMode.FULL,
