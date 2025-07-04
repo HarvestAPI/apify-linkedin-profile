@@ -6,9 +6,9 @@
     "profileScraperMode": {
       "title": "Profile Scraper Mode",
       "type": "string",
-      "enum": ["Profile details ($4 per 1k)", "Profile details + find email ($10 per 1k)"],
+      "enum": ["Profile details no email ($4 per 1k)", "Profile details + find email ($10 per 1k)"],
       "description": "Choose the mode for scraping LinkedIn profiles. 'Profile details' scrapes detailed profile information, while 'Profile details + find email' attempts to find the email address of the profile owner.",
-      "prefill": "Profile details ($4 per 1k)"
+      "prefill": "Profile details no email ($4 per 1k)"
     },
     "queries": {
       "title": "Target URLs",
