@@ -2,7 +2,7 @@
 
 Our powerful tool allows you to gather detailed information from LinkedIn profiles while prioritizing security and adhering to platform policies. You can collect complete data from the experience, education, and skills sections of any profile.
 
-Optionally, our tool can also try to find **email addresses** for LinkedIn profiles, which is ideal for lead generation, recruitment, and networking. We perform comprehensive validation checks, including SMTP checks, to ensure the email addresses are valid and deliverable, resulting in low bounce rates and high deliverability.
+Optionally, our tool can also try to find **email addresses** for LinkedIn profiles, which is ideal for lead generation, recruitment, and networking. We perform comprehensive validation checks, including SMTP checks, to ensure the email addresses are valid and deliverable, resulting in **low bounce rates and high deliverability**. Adaptive cost: if a LinkedIn profile is not complete enough to perform the email search - we will not charge you for the search.
 
 ### Key Benefits
 
