@@ -88,8 +88,8 @@ export async function createHarvestApiScraper({
             'x-apify-actor-max-paid-dataset-items': String(actorMaxPaidDatasetItems) || '0',
             'x-apify-username': user?.username || '',
             'x-apify-user-is-paying': (user as Record<string, any> | null)?.isPaying,
-            'x-sub-user': !state.isPaying ? user?.username : (undefined as any),
-            'x-concurrency': !state.isPaying && user?.username ? '6' : (undefined as any),
+            'x-sub-user': !state.isPaying && user?.username ? user.username : '',
+            'x-concurrency': !state.isPaying && user?.username ? '5' : '',
           },
         })
           .then((response) => response.json())
