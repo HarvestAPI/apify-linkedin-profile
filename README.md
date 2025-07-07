@@ -8,9 +8,8 @@ Optionally, our tool can also try to find **email addresses** for LinkedIn profi
 
 - No cookies or account required: Access profile data without sharing cookies or risking account restrictions
 - Low pricing: $4 per 1000 detailed profiles or $10 per 1000 profiles with email address search.
-- Fast response times.
+- Fast response times & concurrency.
 - Real-time scraping - fresh data.
-- Concurrency: each actor works scraping 6 profiles at a time.
 
 ## How It Works
 
