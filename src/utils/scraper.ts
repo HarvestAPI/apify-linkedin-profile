@@ -6,6 +6,9 @@ import { ProfileScraperMode } from '../main.js';
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
 
+const cm = Actor.getChargingManager();
+const pricingInfo = cm.getPricingInfo();
+
 export async function createHarvestApiScraper({
   concurrency,
   state,
@@ -86,6 +89,7 @@ export async function createHarvestApiScraper({
             'x-apify-actor-build-id': actorBuildId!,
             'x-apify-memory-mbytes': String(memoryMbytes),
             'x-apify-actor-max-paid-dataset-items': String(actorMaxPaidDatasetItems) || '0',
+            'x-apify-max-total-charge-usd': String(pricingInfo.maxTotalChargeUsd),
             'x-apify-username': user?.username || '',
             'x-apify-user-is-paying': (user as Record<string, any> | null)?.isPaying,
             'x-sub-user': !state.isPaying && user?.username ? user.username : '',
