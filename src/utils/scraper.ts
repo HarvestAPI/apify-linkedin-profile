@@ -6,9 +6,6 @@ import { ProfileScraperMode } from '../main.js';
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
 
-const cm = Actor.getChargingManager();
-const pricingInfo = cm.getPricingInfo();
-
 export async function createHarvestApiScraper({
   concurrency,
   state,
@@ -24,7 +21,10 @@ export async function createHarvestApiScraper({
   let processedCounter = 0;
   let scrapedCounter = 0;
 
+  const cm = Actor.getChargingManager();
+  const pricingInfo = cm.getPricingInfo();
   const client = Actor.newClient();
+
   const user = userId ? await client.user(userId).get() : null;
 
   const pushItem = async (item: any, payments: string[]) => {
