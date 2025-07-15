@@ -85,11 +85,12 @@ if (userId && !isPaying) {
   await store.setValue(userId, totalRuns);
 }
 
+let maxItemsExceeding: number | null = null;
 let isFreeUserExceeding = false;
 const logFreeUserExceeding = () =>
   console.warn(
     styleText('bgYellow', ' [WARNING] ') +
-      ' Free users are limited up to 5 items per run. Please upgrade to a paid plan to scrape more items.',
+      ` Free users are limited up to ${maxItemsExceeding} items per run. Please upgrade to a paid plan to scrape more items.`,
   );
 
 if (!isPaying && state.profileScraperMode === ProfileScraperMode.EMAIL) {
@@ -101,16 +102,19 @@ if (!isPaying && state.profileScraperMode === ProfileScraperMode.EMAIL) {
     await Actor.exit();
     process.exit(0);
   }
+  maxItemsExceeding = 5;
+} else if (!isPaying) {
+  maxItemsExceeding = 50;
+}
 
-  if (itemsToScrape > 5) {
-    isFreeUserExceeding = true;
-    itemsToScrape = 5;
-    logFreeUserExceeding();
-  }
+if (maxItemsExceeding && itemsToScrape > maxItemsExceeding) {
+  isFreeUserExceeding = true;
+  itemsToScrape = maxItemsExceeding;
+  logFreeUserExceeding();
 }
 
 const profileScraper = await createHarvestApiScraper({
-  concurrency: !state.isPaying ? 2 : itemsToScrape > 20 ? 8 : 6,
+  concurrency: !state.isPaying ? 2 : 6,
   state,
 });
 
