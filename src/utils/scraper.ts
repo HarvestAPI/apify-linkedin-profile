@@ -1,22 +1,35 @@
 import { Actor } from 'apify';
 import { createConcurrentQueues } from './queue.js';
 import { isProfileUrl } from './url-parsers.js';
-import { ProfileScraperMode } from '../main.js';
+import { ProfileScraperMode, ScraperState } from '../main.js';
 
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
+
+const pushItem = async (state: ScraperState, item: any, payments: string[]) => {
+  if (state.isPayPerEvent) {
+    if (state.profileScraperMode === ProfileScraperMode.FULL) {
+      state.datasetPushPromise = Actor.pushData(item, 'profile');
+    }
+    if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
+      if (payments.includes('linkedinProfileWithEmail')) {
+        state.datasetPushPromise = Actor.pushData(item, 'profile_with_email');
+      } else {
+        state.datasetPushPromise = Actor.pushData(item, 'profile');
+      }
+    }
+  } else {
+    state.datasetPushPromise = Actor.pushData(item);
+  }
+  await state.datasetPushPromise;
+};
 
 export async function createHarvestApiScraper({
   concurrency,
   state,
 }: {
   concurrency: number;
-  state: {
-    datasetPushPromise?: Promise<any>;
-    profileScraperMode: ProfileScraperMode;
-    isPaying: boolean;
-    isPayPerEvent?: boolean;
-  };
+  state: ScraperState;
 }) {
   let processedCounter = 0;
   let scrapedCounter = 0;
@@ -26,23 +39,6 @@ export async function createHarvestApiScraper({
   const client = Actor.newClient();
 
   const user = userId ? await client.user(userId).get() : null;
-
-  const pushItem = async (item: any, payments: string[]) => {
-    if (state.isPayPerEvent) {
-      if (state.profileScraperMode === ProfileScraperMode.FULL) {
-        state.datasetPushPromise = Actor.pushData(item, 'profile');
-      }
-      if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
-        if (payments.includes('linkedinProfileWithEmail')) {
-          state.datasetPushPromise = Actor.pushData(item, 'profile_with_email');
-        } else {
-          state.datasetPushPromise = Actor.pushData(item, 'profile');
-        }
-      }
-    } else {
-      state.datasetPushPromise = Actor.pushData(item);
-    }
-  };
 
   return {
     addJob: createConcurrentQueues(
@@ -122,7 +118,7 @@ export async function createHarvestApiScraper({
           return;
         }
         if (isPaid) {
-          pushItem(response, payments);
+          await pushItem(state, response, payments);
         }
 
         if (response.element?.id) {

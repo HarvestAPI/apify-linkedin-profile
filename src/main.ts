@@ -47,12 +47,14 @@ const profiles = [
   ...(input.queries || []).map((query) => ({ query })),
 ];
 
-export const state: {
-  datasetPushPromise?: Promise<void>;
+export type ScraperState = {
+  datasetPushPromise?: Promise<any>;
   profileScraperMode: ProfileScraperMode;
   isPaying: boolean;
   isPayPerEvent?: boolean;
-} = {
+};
+
+export const state: ScraperState = {
   isPaying: true, // default to true, in case we cannot determine the user status, and to not limit paid users
   profileScraperMode:
     profileScraperModeInputMap1[input.profileScraperMode] ??
