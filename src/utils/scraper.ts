@@ -6,23 +6,26 @@ import { ProfileScraperMode, ScraperState } from '../main.js';
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
 
-const pushItem = async (state: ScraperState, item: any, payments: string[]) => {
-  if (state.isPayPerEvent) {
-    if (state.profileScraperMode === ProfileScraperMode.FULL) {
-      state.datasetPushPromise = Actor.pushData(item, 'profile');
-    }
-    if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
-      if (payments.includes('linkedinProfileWithEmail')) {
-        state.datasetPushPromise = Actor.pushData(item, 'profile_with_email');
-      } else {
+const pushItem = createConcurrentQueues(
+  190,
+  async (state: ScraperState, item: any, payments: string[]) => {
+    if (state.isPayPerEvent) {
+      if (state.profileScraperMode === ProfileScraperMode.FULL) {
         state.datasetPushPromise = Actor.pushData(item, 'profile');
       }
+      if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
+        if (payments.includes('linkedinProfileWithEmail')) {
+          state.datasetPushPromise = Actor.pushData(item, 'profile_with_email');
+        } else {
+          state.datasetPushPromise = Actor.pushData(item, 'profile');
+        }
+      }
+    } else {
+      state.datasetPushPromise = Actor.pushData(item);
     }
-  } else {
-    state.datasetPushPromise = Actor.pushData(item);
-  }
-  await state.datasetPushPromise;
-};
+    await state.datasetPushPromise;
+  },
+);
 
 export async function createHarvestApiScraper({
   concurrency,
