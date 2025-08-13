@@ -116,7 +116,7 @@ if (maxItemsExceeding && itemsToScrape > maxItemsExceeding) {
 }
 
 const profileScraper = await createHarvestApiScraper({
-  concurrency: !state.isPaying ? 2 : 6,
+  concurrency: !state.isPaying ? 2 : 8,
   state,
 });
 
