@@ -1,4 +1,4 @@
-import { Actor } from 'apify';
+import { Actor, ChargeResult } from 'apify';
 import { createConcurrentQueues } from './queue.js';
 import { isProfileUrl } from './url-parsers.js';
 import { ProfileScraperMode, ScraperState } from '../main.js';
@@ -9,21 +9,23 @@ const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, mem
 const pushItem = createConcurrentQueues(
   190,
   async (state: ScraperState, item: any, payments: string[]) => {
-    if (state.isPayPerEvent) {
-      if (state.profileScraperMode === ProfileScraperMode.FULL) {
-        state.datasetPushPromise = Actor.pushData(item, 'profile');
-      }
-      if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
-        if (payments.includes('linkedinProfileWithEmail')) {
-          state.datasetPushPromise = Actor.pushData(item, 'profile_with_email');
-        } else {
-          state.datasetPushPromise = Actor.pushData(item, 'profile');
-        }
-      }
-    } else {
-      state.datasetPushPromise = Actor.pushData(item);
+    let pushResult: ChargeResult | undefined;
+    if (state.profileScraperMode === ProfileScraperMode.FULL) {
+      pushResult = await Actor.pushData(item, 'profile');
     }
-    await state.datasetPushPromise;
+    if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
+      if (payments.includes('linkedinProfileWithEmail')) {
+        pushResult = await Actor.pushData(item, 'profile_with_email');
+      } else {
+        pushResult = await Actor.pushData(item, 'profile');
+      }
+    }
+
+    if (pushResult?.eventChargeLimitReached) {
+      await Actor.exit({
+        statusMessage: 'max charge reached',
+      });
+    }
   },
 );
 
@@ -40,6 +42,15 @@ export async function createHarvestApiScraper({
   const cm = Actor.getChargingManager();
   const pricingInfo = cm.getPricingInfo();
   const client = Actor.newClient();
+
+  if (pricingInfo.maxTotalChargeUsd < 0.004) {
+    console.warn(
+      'Warning: The maximum total charge is set to less than $0.004, which will not be sufficient for scraping LinkedIn profiles.',
+    );
+    await Actor.exit({
+      statusMessage: 'max charge reached',
+    });
+  }
 
   const user = userId ? await client.user(userId).get() : null;
 

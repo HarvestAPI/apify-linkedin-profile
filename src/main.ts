@@ -48,7 +48,6 @@ const profiles = [
 ];
 
 export type ScraperState = {
-  datasetPushPromise?: Promise<any>;
   profileScraperMode: ProfileScraperMode;
   isPaying: boolean;
   isPayPerEvent?: boolean;
@@ -131,8 +130,6 @@ const promises = profiles.slice(0, itemsToScrape).map((profile, index) => {
 await Promise.all(promises).catch((error) => {
   console.error(`Error scraping profiles:`, error);
 });
-
-await state.datasetPushPromise;
 
 if (isFreeUserExceeding) {
   logFreeUserExceeding();
