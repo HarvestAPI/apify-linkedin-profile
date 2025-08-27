@@ -33,13 +33,12 @@ export async function createHarvestApiScraper({
         total: number;
       }) => {
         if (actorMaxPaidDatasetItems && scrapedCounter >= actorMaxPaidDatasetItems) {
+          // legacy logic from pey-per-result; afaik actorMaxPaidDatasetItems is not set in pay-per-event mode
           console.warn(`Max scraped items reached: ${actorMaxPaidDatasetItems}`);
           return;
         }
 
-        const params = new URLSearchParams({
-          ...query,
-        });
+        const params = new URLSearchParams({ ...query });
         if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
           params.append('findEmail', 'true');
         }
@@ -60,7 +59,7 @@ export async function createHarvestApiScraper({
 
         const response = await fetch(url, {
           headers: {
-            'X-API-Key': process.env.HARVESTAPI_TOKEN!,
+            'x-api-key': process.env.HARVESTAPI_TOKEN!,
             'x-apify-userid': userId!,
             'x-apify-actor-id': actorId!,
             'x-apify-actor-run-id': actorRunId!,

@@ -41,13 +41,11 @@ if (pricingInfo.maxTotalChargeUsd < 0.004) {
 const { profiles, profileScraperMode } = handleInput(input);
 
 export const state: ScraperState = {
-  isPaying: true,
+  isPaying,
   profileScraperMode,
   user,
+  isPayPerEvent: pricingInfo.isPayPerEvent,
 };
-
-state.isPaying = isPaying;
-state.isPayPerEvent = pricingInfo.isPayPerEvent;
 
 let itemsToScrape = profiles.length;
 if (itemsToScrape > maxItems) {
