@@ -1,33 +1,11 @@
-import { Actor, ChargeResult } from 'apify';
+import { Actor } from 'apify';
+import { pushItem } from './pushItem.js';
 import { createConcurrentQueues } from './queue.js';
+import { ProfileScraperMode, ScraperState } from './types.js';
 import { isProfileUrl } from './url-parsers.js';
-import { ProfileScraperMode, ScraperState } from '../main.js';
 
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
-
-const pushItem = createConcurrentQueues(
-  190,
-  async (state: ScraperState, item: any, payments: string[]) => {
-    let pushResult: ChargeResult | undefined;
-    if (state.profileScraperMode === ProfileScraperMode.FULL) {
-      pushResult = await Actor.pushData(item, 'profile');
-    }
-    if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
-      if (payments.includes('linkedinProfileWithEmail')) {
-        pushResult = await Actor.pushData(item, 'profile_with_email');
-      } else {
-        pushResult = await Actor.pushData(item, 'profile');
-      }
-    }
-
-    if (pushResult?.eventChargeLimitReached) {
-      await Actor.exit({
-        statusMessage: 'max charge reached',
-      });
-    }
-  },
-);
 
 export async function createHarvestApiScraper({
   concurrency,
@@ -41,18 +19,6 @@ export async function createHarvestApiScraper({
 
   const cm = Actor.getChargingManager();
   const pricingInfo = cm.getPricingInfo();
-  const client = Actor.newClient();
-
-  if (pricingInfo.maxTotalChargeUsd < 0.004) {
-    console.warn(
-      'Warning: The maximum total charge is set to less than $0.004, which will not be sufficient for scraping LinkedIn profiles.',
-    );
-    await Actor.exit({
-      statusMessage: 'max charge reached',
-    });
-  }
-
-  const user = userId ? await client.user(userId).get() : null;
 
   return {
     addJob: createConcurrentQueues(
@@ -73,8 +39,10 @@ export async function createHarvestApiScraper({
 
         const params = new URLSearchParams({
           ...query,
-          findEmail: state.profileScraperMode === ProfileScraperMode.EMAIL ? 'true' : '',
         });
+        if (state.profileScraperMode === ProfileScraperMode.EMAIL) {
+          params.append('findEmail', 'true');
+        }
 
         console.info(`Starting item#${index + 1} ${JSON.stringify(query)}...`);
         const timestamp = new Date();
@@ -100,10 +68,10 @@ export async function createHarvestApiScraper({
             'x-apify-memory-mbytes': String(memoryMbytes),
             'x-apify-actor-max-paid-dataset-items': String(actorMaxPaidDatasetItems) || '0',
             'x-apify-max-total-charge-usd': String(pricingInfo.maxTotalChargeUsd),
-            'x-apify-username': user?.username || '',
-            'x-apify-user-is-paying': (user as Record<string, any> | null)?.isPaying,
-            'x-sub-user': !state.isPaying && user?.username ? user.username : '',
-            'x-concurrency': !state.isPaying && user?.username ? '2' : '',
+            'x-apify-username': state.user?.username || '',
+            'x-apify-user-is-paying': (state.user as Record<string, any> | null)?.isPaying,
+            'x-sub-user': !state.isPaying && state.user?.username ? state.user.username : '',
+            'x-concurrency': !state.isPaying && state.user?.username ? '2' : '',
           },
         })
           .then((response) => response.json())

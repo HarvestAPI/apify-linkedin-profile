@@ -1,8 +1,10 @@
 // Apify SDK - toolkit for building Apify Actors (Read more at https://docs.apify.com/sdk/js/).
 import { Actor } from 'apify';
-import { createHarvestApiScraper } from './utils/scraper.js';
 import { config } from 'dotenv';
 import { styleText } from 'node:util';
+import { handleInput } from './utils/input.js';
+import { createHarvestApiScraper } from './utils/scraper.js';
+import { Input, ProfileScraperMode, ScraperState } from './utils/types.js';
 
 config();
 
@@ -14,61 +16,35 @@ config();
 // The init() call configures the Actor for its environment. It's recommended to start every Actor with an init().
 await Actor.init();
 
-// console.log(`userId:`, Actor.getEnv().userId);
-
-export enum ProfileScraperMode {
-  FULL = 'FULL',
-  EMAIL = 'EMAIL',
-}
-const profileScraperModeInputMap1: Record<string, ProfileScraperMode> = {
-  'Profile details no email ($4 per 1k)': ProfileScraperMode.FULL,
-  'Profile details + email search ($10 per 1k)': ProfileScraperMode.EMAIL,
-};
-const profileScraperModeInputMap2: Record<string, ProfileScraperMode> = {
-  '2': ProfileScraperMode.FULL,
-  '3': ProfileScraperMode.EMAIL,
-};
-
-interface Input {
-  profileScraperMode: string;
-  urls?: string[];
-  publicIdentifiers?: string[];
-  profileIds?: string[];
-  queries?: string[];
-}
 // Structure of input is defined in input_schema.json
 const input = await Actor.getInput<Input>();
 if (!input) throw new Error('Input is missing!');
-
-const profiles = [
-  ...(input.urls || []).map((url) => ({ url })),
-  ...(input.publicIdentifiers || []).map((publicIdentifier) => ({ publicIdentifier })),
-  ...(input.profileIds || []).map((profileId) => ({ profileId })),
-  ...(input.queries || []).map((query) => ({ query })),
-];
-
-export type ScraperState = {
-  profileScraperMode: ProfileScraperMode;
-  isPaying: boolean;
-  isPayPerEvent?: boolean;
-};
-
-export const state: ScraperState = {
-  isPaying: true, // default to true, in case we cannot determine the user status, and to not limit paid users
-  profileScraperMode:
-    profileScraperModeInputMap1[input.profileScraperMode] ??
-    profileScraperModeInputMap2[input.profileScraperMode] ??
-    ProfileScraperMode.FULL,
-};
 
 const { userId } = Actor.getEnv();
 const client = Actor.newClient();
 
 const user = userId ? await client.user(userId).get() : null;
-const isPaying = (user as Record<string, any> | null)?.isPaying === false ? false : true;
+const isPaying = (user as Record<string, any> | null)?.isPaying === false ? false : true; // default is true, in case we cannot determine the user status, and to not limit paid users
 const maxItems = Actor.getEnv().actorMaxPaidDatasetItems || 100000;
 const cm = Actor.getChargingManager();
 const pricingInfo = cm.getPricingInfo();
+
+if (pricingInfo.maxTotalChargeUsd < 0.004) {
+  console.warn(
+    'Warning: The maximum total charge is set to less than $0.004, which will not be sufficient for scraping LinkedIn profiles.',
+  );
+  await Actor.exit({
+    statusMessage: 'max charge reached',
+  });
+}
+
+const { profiles, profileScraperMode } = handleInput(input);
+
+export const state: ScraperState = {
+  isPaying: true,
+  profileScraperMode,
+  user,
+};
 
 state.isPaying = isPaying;
 state.isPayPerEvent = pricingInfo.isPayPerEvent;
@@ -100,8 +76,9 @@ if (!isPaying && state.profileScraperMode === ProfileScraperMode.EMAIL) {
       styleText('bgYellow', ' [WARNING] ') +
         ' Free users are limited to 15 runs. Please upgrade to a paid plan to run more.',
     );
-    await Actor.exit();
-    process.exit(0);
+    await Actor.exit({
+      statusMessage: 'max runs reached',
+    });
   }
   maxItemsExceeding = 5;
 } else if (!isPaying) {
@@ -115,7 +92,7 @@ if (maxItemsExceeding && itemsToScrape > maxItemsExceeding) {
 }
 
 const profileScraper = await createHarvestApiScraper({
-  concurrency: !state.isPaying ? 2 : 8,
+  concurrency: state.isPaying ? 8 : 2,
   state,
 });
 
@@ -136,4 +113,6 @@ if (isFreeUserExceeding) {
 }
 
 // Gracefully exit the Actor process. It's recommended to quit all Actors with an exit().
-await Actor.exit();
+await Actor.exit({
+  statusMessage: 'success',
+});

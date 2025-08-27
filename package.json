@@ -2,12 +2,22 @@
   "name": "@harvestapi/linkedin-profile-scraper",
   "version": "0.0.1",
   "type": "module",
-  "description": "This is an example of an Apify actor.",
+  "author": "HarvestAPI",
+  "license": "MIT",
+  "description": "LinkedIn Profile Scraper Actor",
   "engines": {
     "node": ">=18.0.0"
   },
+  "scripts": {
+    "start": "npm run start:dev",
+    "start:prod": "node dist/main.js",
+    "start:dev": "tsx src/main.ts",
+    "build": "tsc",
+    "fix:format": "prettier --write ."
+  },
   "dependencies": {
     "apify": "^3.2.6",
+    "apify-client": "2.13.0",
     "dotenv": "^16.5.0"
   },
   "devDependencies": {
@@ -22,15 +32,5 @@
     "prettier": "3.5.3",
     "tsx": "^4.6.2",
     "typescript": "^5.3.3"
-  },
-  "scripts": {
-    "start": "npm run start:dev",
-    "start:prod": "node dist/main.js",
-    "start:dev": "tsx src/main.ts",
-    "build": "tsc",
-    "fix:format": "prettier --write .",
-    "test": "echo \"Error: oops, the actor has no tests yet, sad!\" && exit 1"
-  },
-  "author": "It's not you it's me",
-  "license": "ISC"
+  }
 }
