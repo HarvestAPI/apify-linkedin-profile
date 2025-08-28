@@ -11,10 +11,22 @@ const profileScraperModeInputMap2: Record<string, ProfileScraperMode> = {
 
 export function handleInput(input: Input) {
   const profiles = [
-    ...(input.urls || []).map((url) => ({ url })),
-    ...(input.publicIdentifiers || []).map((publicIdentifier) => ({ publicIdentifier })),
-    ...(input.profileIds || []).map((profileId) => ({ profileId })),
-    ...(input.queries || []).map((query) => ({ query })),
+    ...(input.urls || [])
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((url) => ({ url })),
+    ...(input.publicIdentifiers || [])
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((publicIdentifier) => ({ publicIdentifier })),
+    ...(input.profileIds || [])
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((profileId) => ({ profileId })),
+    ...(input.queries || [])
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((query) => ({ query })),
   ];
 
   return {
