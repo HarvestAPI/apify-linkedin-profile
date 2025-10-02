@@ -3,7 +3,6 @@ import { pushItem } from './pushItem.js';
 import { createConcurrentQueues } from './queue.js';
 import { ProfileScraperMode, ScraperState } from './types.js';
 import { isProfileUrl } from './url-parsers.js';
-import { preserveState } from './state.js';
 
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
@@ -101,7 +100,6 @@ export async function createHarvestApiScraper({
         }
         if (isPaid) {
           await pushItem(state, response, payments);
-          await preserveState(state);
         }
 
         if (response.element?.id) {

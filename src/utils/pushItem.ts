@@ -1,4 +1,5 @@
 import { Actor, ChargeResult } from 'apify';
+import { preserveState } from './state.js';
 import { ProfileScraperMode, ScraperState } from './types.js';
 
 export async function pushItem(state: ScraperState, item: any, payments: string[]) {
@@ -32,4 +33,7 @@ export async function pushItem(state: ScraperState, item: any, payments: string[
       statusMessage: 'max charge reached',
     });
   }
+
+  state.scrapedProfiles.push(item.query || item.url || item.publicIdentifier || item.profileId);
+  await preserveState(state);
 }

@@ -25,23 +25,18 @@ export function handleInputProfileScraperMode(input: Input) {
 }
 
 export function handleInputProfiles(input: Input, state: ScraperState) {
+  const parseInputArray = (arr: string[] | undefined) => {
+    if (!Array.isArray(arr)) return [];
+    return [...new Set(arr.map((s) => (typeof s === 'string' ? s.trim() : '')).filter(Boolean))];
+  };
+
   const profiles = [
-    ...(input.urls || [])
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .map((url): ProfileQuery => ({ url })),
-    ...(input.publicIdentifiers || [])
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .map((publicIdentifier): ProfileQuery => ({ publicIdentifier })),
-    ...(input.profileIds || [])
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .map((profileId): ProfileQuery => ({ profileId })),
-    ...(input.queries || [])
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .map((query): ProfileQuery => ({ query })),
+    ...parseInputArray(input.urls).map((url): ProfileQuery => ({ url })),
+    ...parseInputArray(input.publicIdentifiers).map(
+      (publicIdentifier): ProfileQuery => ({ publicIdentifier }),
+    ),
+    ...parseInputArray(input.profileIds).map((profileId): ProfileQuery => ({ profileId })),
+    ...parseInputArray(input.queries).map((query): ProfileQuery => ({ query })),
   ].filter((item) => {
     if (
       state.scrapedProfiles.includes(
