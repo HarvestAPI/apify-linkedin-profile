@@ -99,7 +99,7 @@ export async function createHarvestApiScraper({
           return;
         }
         if (isPaid) {
-          await pushItem(state, response, payments);
+          await pushItem(state, response, payments, query);
         }
 
         if (response.element?.id) {

@@ -2,7 +2,12 @@ import { Actor, ChargeResult } from 'apify';
 import { preserveState } from './state.js';
 import { ProfileScraperMode, ScraperState } from './types.js';
 
-export async function pushItem(state: ScraperState, item: any, payments: string[]) {
+export async function pushItem(
+  state: ScraperState,
+  item: any,
+  payments: string[],
+  query: Record<string, string>,
+) {
   let pushResult: ChargeResult | undefined;
 
   if (item?.element) {
@@ -34,6 +39,6 @@ export async function pushItem(state: ScraperState, item: any, payments: string[
     });
   }
 
-  state.scrapedProfiles.push(item.query || item.url || item.publicIdentifier || item.profileId);
-  await preserveState(state);
+  state.scrapedProfiles.push(query.query || query.url || query.publicIdentifier || query.profileId);
+  void preserveState(state);
 }
