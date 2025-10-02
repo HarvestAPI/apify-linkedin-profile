@@ -19,6 +19,11 @@ Simply provide one of the following:
 - List of LinkedIn profile URLs
 - List if LinkedIn profile IDs (e.g. ACoAAA8BYqEBCGLg_vT_ca6mMEqkpp9nVffJ3hc)
 
+#### Email search
+
+By selecting the "Profile details + email search ($10 per 1k)" profile scraper mode, you can enable our tool to perform email search for LinkedIn profiles, which is ideal for lead generation, recruitment, and networking. We perform comprehensive validation checks, including SMTP checks, to ensure the email addresses are valid and deliverable. Adaptive cost: if a LinkedIn profile is not complete enough to perform the email search - we will not charge you for the search.  
+**Important Note:** The scraper cannot extract emails directly from a LinkedIn profile as this information is not publicly available on the platform. The email search is performed independently and **it is not guaranteed to find an email for every profile.**
+
 ### Data You'll Receive
 
 - Profile summary and headline

@@ -6,7 +6,10 @@
     "profileScraperMode": {
       "title": "Profile Scraper Mode (change this to find email)",
       "type": "string",
-      "enum": ["Profile details no email ($4 per 1k)", "Profile details + email search ($10 per 1k)"],
+      "enum": [
+        "Profile details no email ($4 per 1k)",
+        "Profile details + email search ($10 per 1k)"
+      ],
       "description": "Choose the mode for scraping LinkedIn profiles. 'Profile details' scrapes detailed profile information, while 'Profile details + email search' attempts to find the email address of the profile owner.",
       "prefill": "Profile details no email ($4 per 1k)"
     },
@@ -15,6 +18,7 @@
       "type": "array",
       "editor": "stringList",
       "description": "List of LinkedIn profile URLs or Public Identifiers (last part in the URL) to scrape.",
+      "uniqueItems": true,
       "prefill": [
         "https://www.linkedin.com/in/williamhgates",
         "https://www.linkedin.com/in/towhid-rahman"
@@ -23,18 +27,21 @@
     "urls": {
       "sectionCaption": "Advanced",
       "title": "Profile URLs",
+      "uniqueItems": true,
       "type": "array",
       "editor": "stringList",
       "description": "List of LinkedIn profile URLs to scrape. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs"
     },
     "publicIdentifiers": {
       "title": "Public Identifiers (last part in the URL)",
+      "uniqueItems": true,
       "type": "array",
       "editor": "stringList",
       "description": "List of LinkedIn Public Identifiers. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs"
     },
     "profileIds": {
       "title": "LinkedIn Profile IDs",
+      "uniqueItems": true,
       "type": "array",
       "editor": "stringList",
       "description": "List of LinkedIn profile IDs to scrape. Provide at least one of the 3 fields: URLs or Public Identifiers or Profile IDs"

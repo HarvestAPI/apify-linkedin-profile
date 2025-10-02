@@ -1,3 +1,4 @@
+import { ActorPricingInfo } from 'apify';
 import { User } from 'apify-client';
 
 export type Input = {
@@ -18,4 +19,7 @@ export type ScraperState = {
   user: User | null;
   isPaying: boolean;
   isPayPerEvent?: boolean;
+  scrapedProfiles: string[];
+  maxItems: number;
+  pricingInfo: ActorPricingInfo;
 };
