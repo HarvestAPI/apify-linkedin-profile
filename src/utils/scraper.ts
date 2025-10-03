@@ -48,10 +48,12 @@ export async function createHarvestApiScraper({
 
         let path = 'linkedin/profile';
 
-        if (isProfileUrl(query.query) || isProfileUrl(query.url)) {
-          path = 'linkedin/profile';
-        } else {
-          path = 'linkedin/company';
+        if (query.query?.includes('linkedin.com/') || query.url?.includes('linkedin.com/')) {
+          if (isProfileUrl(query.query) || isProfileUrl(query.url)) {
+            path = 'linkedin/profile';
+          } else {
+            path = 'linkedin/company';
+          }
         }
 
         const baseUrl = process.env.HARVESTAPI_URL || 'https://api.harvest-api.com';
