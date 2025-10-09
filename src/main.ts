@@ -57,18 +57,18 @@ const logFreeUserExceeding = () =>
   );
 
 if (!state.isPaying && state.profileScraperMode === ProfileScraperMode.EMAIL) {
-  if (totalRuns > 15) {
+  if (totalRuns > 20) {
     console.warn(
       styleText('bgYellow', ' [WARNING] ') +
-        ' Free users are limited to 15 runs. Please upgrade to a paid plan to run more.',
+        ' Free users are limited to 20 runs. Please upgrade to a paid plan to run more.',
     );
     await Actor.exit({
       statusMessage: 'max runs reached',
     });
   }
-  maxItemsExceeding = 5;
-} else if (!state.isPaying) {
   maxItemsExceeding = 50;
+} else if (!state.isPaying) {
+  maxItemsExceeding = 500;
 }
 
 Actor.on('migrating', async () => {
@@ -83,7 +83,7 @@ if (maxItemsExceeding && itemsToScrape > maxItemsExceeding) {
 }
 
 const profileScraper = await createHarvestApiScraper({
-  concurrency: state.isPaying ? 15 : 2,
+  concurrency: state.isPaying ? 20 : 4,
   state,
 });
 
