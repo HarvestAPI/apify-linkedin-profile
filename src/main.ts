@@ -47,9 +47,7 @@ const logFreeUserExceeding = () =>
       ` Free users are limited up to ${maxItemsExceeding} items per run. Please upgrade to a paid plan to scrape more items.`,
   );
 
-if (!state.isPaying && state.profileScraperMode === ProfileScraperMode.EMAIL) {
-  maxItemsExceeding = 50;
-} else if (!state.isPaying) {
+if (!state.isPaying) {
   maxItemsExceeding = 500;
 }
 
