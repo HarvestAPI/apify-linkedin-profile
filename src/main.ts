@@ -21,7 +21,6 @@ await Actor.init();
 const input = await Actor.getInput<Input>();
 if (!input) throw new Error('Input is missing!');
 
-const { userId } = Actor.getEnv();
 const state = await createState(input);
 
 if (state.pricingInfo.maxTotalChargeUsd < 0.004) {
@@ -40,14 +39,6 @@ if (itemsToScrape > state.maxItems) {
   itemsToScrape = state.maxItems;
 }
 
-let totalRuns = 0;
-if (userId && !state.isPaying) {
-  const store = await Actor.openKeyValueStore('linkedin-profile-scraper-run-counter-store');
-  totalRuns = Number(await store.getValue(userId)) || 0;
-  totalRuns++;
-  await store.setValue(userId, totalRuns);
-}
-
 let maxItemsExceeding: number | null = null;
 let isFreeUserExceeding = false;
 const logFreeUserExceeding = () =>
@@ -57,15 +48,6 @@ const logFreeUserExceeding = () =>
   );
 
 if (!state.isPaying && state.profileScraperMode === ProfileScraperMode.EMAIL) {
-  if (totalRuns > 20) {
-    console.warn(
-      styleText('bgYellow', ' [WARNING] ') +
-        ' Free users are limited to 20 runs. Please upgrade to a paid plan to run more.',
-    );
-    await Actor.exit({
-      statusMessage: 'max runs reached',
-    });
-  }
   maxItemsExceeding = 50;
 } else if (!state.isPaying) {
   maxItemsExceeding = 500;
@@ -83,7 +65,7 @@ if (maxItemsExceeding && itemsToScrape > maxItemsExceeding) {
 }
 
 const profileScraper = await createHarvestApiScraper({
-  concurrency: state.isPaying ? 10 : 4,
+  concurrency: state.isPaying ? 10 : 1,
   state,
 });
 

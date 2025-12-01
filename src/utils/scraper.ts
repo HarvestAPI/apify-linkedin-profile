@@ -72,7 +72,7 @@ export async function createHarvestApiScraper({
             'x-apify-username': state.user?.username || '',
             'x-apify-user-is-paying': (state.user as Record<string, any> | null)?.isPaying,
             'x-sub-user': !state.isPaying && state.user?.username ? state.user.username : '',
-            'x-concurrency': !state.isPaying && state.user?.username ? '2' : '',
+            'x-concurrency': !state.isPaying && state.user?.username ? '1' : '',
           },
         })
           .then((response) => response.json())
