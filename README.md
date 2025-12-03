@@ -11,6 +11,8 @@ Optionally, our tool can also try to find **email addresses** for LinkedIn profi
 - Fast response times & concurrency.
 - Real-time scraping - fresh data.
 
+Find more Linkedin scraping actors [https://apify.com/harvestapi](https://apify.com/harvestapi)  
+
 ## How It Works
 
 Simply provide one of the following:
