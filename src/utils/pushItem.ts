@@ -13,12 +13,8 @@ export async function pushItem(
   if (item?.element) {
     item = {
       ...item.element,
-      ...item,
-    };
-    item.element = {
-      _deprecationInfo:
-        '`element` property is deprecated to simplify output of this actor. All profile properties are now top-level. Please update your integrations accordingly. ',
-      ...item.element,
+      error: item.error || undefined,
+      originalQuery: query,
     };
   }
 

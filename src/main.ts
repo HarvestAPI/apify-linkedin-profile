@@ -5,7 +5,7 @@ import { styleText } from 'node:util';
 import { handleInputProfiles } from './utils/input.js';
 import { createHarvestApiScraper } from './utils/scraper.js';
 import { createState, preserveState } from './utils/state.js';
-import { Input, ProfileScraperMode } from './utils/types.js';
+import { Input } from './utils/types.js';
 
 config();
 
