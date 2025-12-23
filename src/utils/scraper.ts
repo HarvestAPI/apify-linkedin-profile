@@ -108,7 +108,7 @@ export async function createHarvestApiScraper({
           scrapedCounter++;
 
           console.info(
-            `Scraped item#${index + 1} ${JSON.stringify(query)}. Elapsed: ${elapsed}. Progress: ${processedCounter}/${total}`,
+            `Scraped item#${index + 1} ${JSON.stringify(query)}. Progress: ${processedCounter}/${total}`,
           );
         } else {
           console.error(
