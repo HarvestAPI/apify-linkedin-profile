@@ -1,5 +1,4 @@
 import { ActorPricingInfo } from 'apify';
-import { User } from 'apify-client';
 
 export type Input = {
   profileScraperMode: string;
@@ -16,7 +15,6 @@ export enum ProfileScraperMode {
 
 export type ScraperState = {
   profileScraperMode: ProfileScraperMode;
-  user: User | null;
   isPaying: boolean;
   isPayPerEvent?: boolean;
   scrapedProfiles: string[];

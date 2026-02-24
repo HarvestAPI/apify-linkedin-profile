@@ -1,7 +1,6 @@
 // Apify SDK - toolkit for building Apify Actors (Read more at https://docs.apify.com/sdk/js/).
 import { Actor } from 'apify';
 import { config } from 'dotenv';
-import { styleText } from 'node:util';
 import { handleInputProfiles } from './utils/input.js';
 import { createHarvestApiScraper } from './utils/scraper.js';
 import { createState, preserveState } from './utils/state.js';
@@ -39,28 +38,10 @@ if (itemsToScrape > state.maxItems) {
   itemsToScrape = state.maxItems;
 }
 
-let maxItemsExceeding: number | null = null;
-let isFreeUserExceeding = false;
-const logFreeUserExceeding = () =>
-  console.warn(
-    styleText('bgYellow', ' [WARNING] ') +
-      ` Free users are limited up to ${maxItemsExceeding} items per run. Please upgrade to a paid plan to scrape more items.`,
-  );
-
-if (!state.isPaying) {
-  maxItemsExceeding = 500;
-}
-
 Actor.on('migrating', async () => {
   await preserveState(state);
   await Actor.reboot();
 });
-
-if (maxItemsExceeding && itemsToScrape > maxItemsExceeding) {
-  isFreeUserExceeding = true;
-  itemsToScrape = maxItemsExceeding;
-  logFreeUserExceeding();
-}
 
 const profileScraper = await createHarvestApiScraper({
   concurrency: state.isPaying ? 12 : 2,
@@ -78,10 +59,6 @@ const promises = profiles.slice(0, itemsToScrape).map((profile, index) => {
 await Promise.all(promises).catch((error) => {
   console.error(`Error scraping profiles:`, error);
 });
-
-if (isFreeUserExceeding) {
-  logFreeUserExceeding();
-}
 
 // Gracefully exit the Actor process. It's recommended to quit all Actors with an exit().
 await Actor.exit({

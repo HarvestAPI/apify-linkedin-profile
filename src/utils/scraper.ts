@@ -6,6 +6,7 @@ import { isProfileUrl } from './url-parsers.js';
 
 const { actorId, actorRunId, actorBuildId, userId, actorMaxPaidDatasetItems, memoryMbytes } =
   Actor.getEnv();
+const isPaying = !!process.env.APIFY_USER_IS_PAYING;
 
 export async function createHarvestApiScraper({
   concurrency,
@@ -44,7 +45,6 @@ export async function createHarvestApiScraper({
         }
 
         console.info(`Starting item#${index + 1} ${JSON.stringify(query)}...`);
-        const timestamp = new Date();
 
         let path = 'linkedin/profile';
 
@@ -62,17 +62,16 @@ export async function createHarvestApiScraper({
         const response = await fetch(url, {
           headers: {
             'x-api-key': process.env.HARVESTAPI_TOKEN!,
-            'x-apify-userid': userId!,
             'x-apify-actor-id': actorId!,
             'x-apify-actor-run-id': actorRunId!,
             'x-apify-actor-build-id': actorBuildId!,
             'x-apify-memory-mbytes': String(memoryMbytes),
-            'x-apify-actor-max-paid-dataset-items': String(actorMaxPaidDatasetItems) || '0',
+            'x-apify-userid': userId!,
+            'x-apify-user-is-paying': String(isPaying),
+            'x-apify-user-is-paying-2': process.env.APIFY_USER_IS_PAYING || '',
             'x-apify-max-total-charge-usd': String(pricingInfo.maxTotalChargeUsd),
-            'x-apify-username': state.user?.username || '',
-            'x-apify-user-is-paying': (state.user as Record<string, any> | null)?.isPaying,
-            'x-sub-user': !state.isPaying && state.user?.username ? state.user.username : '',
-            'x-concurrency': !state.isPaying && state.user?.username ? '1' : '',
+            'x-apify-is-pay-per-event': String(pricingInfo.isPayPerEvent),
+            'x-apify-actor-max-paid-dataset-items': String(actorMaxPaidDatasetItems) || '0',
           },
         })
           .then((response) => response.json())
@@ -93,7 +92,6 @@ export async function createHarvestApiScraper({
           delete response.error.payments;
         }
 
-        const elapsed = new Date().getTime() - timestamp.getTime();
         processedCounter++;
 
         if (actorMaxPaidDatasetItems && scrapedCounter >= actorMaxPaidDatasetItems) {

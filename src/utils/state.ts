@@ -2,12 +2,9 @@ import { handleInputProfileScraperMode } from './input.js';
 import { Input, ScraperState } from './types.js';
 import { Actor } from 'apify';
 
-const client = Actor.newClient();
-const { userId } = Actor.getEnv();
+const isPaying = !!process.env.APIFY_USER_IS_PAYING;
 
 export async function createState(input: Input) {
-  const user = userId ? await client.user(userId).get() : null;
-  const isPaying = (user as Record<string, any> | null)?.isPaying === false ? false : true; // default is true, in case we cannot determine the user status, and to not limit paid users
   const maxItems = Actor.getEnv().actorMaxPaidDatasetItems || 1000000;
   const cm = Actor.getChargingManager();
   const pricingInfo = cm.getPricingInfo();
@@ -19,7 +16,6 @@ export async function createState(input: Input) {
   const state: ScraperState = {
     isPaying,
     profileScraperMode,
-    user,
     isPayPerEvent: pricingInfo.isPayPerEvent,
     scrapedProfiles: resurrectedState?.scrapedProfiles || [],
     maxItems,
