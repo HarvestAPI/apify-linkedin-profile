@@ -5,6 +5,7 @@ import { handleInputProfiles } from './utils/input.js';
 import { createHarvestApiScraper } from './utils/scraper.js';
 import { createState, preserveState } from './utils/state.js';
 import { Input } from './utils/types.js';
+import { runWorkerPool } from './utils/workerPool.js';
 
 config();
 
@@ -43,24 +44,21 @@ Actor.on('migrating', async () => {
   await Actor.reboot();
 });
 
+const concurrencyLimit = state.isPaying ? 12 : 2;
+
 const profileScraper = await createHarvestApiScraper({
-  concurrency: state.isPaying ? 12 : 2,
   state,
 });
 
-const promises = profiles.slice(0, itemsToScrape).map((profile, index) => {
-  return profileScraper.addJob({
+await runWorkerPool(profiles.slice(0, itemsToScrape), concurrencyLimit, async (profile, index) => {
+  await profileScraper.processJob({
     query: profile,
     index,
     total: profiles.length,
   });
-});
-
-await Promise.all(promises).catch((error) => {
-  console.error(`Error scraping profiles:`, error);
+}).catch((error) => {
+  console.error(`Fatal error in worker pool execution:`, error);
 });
 
 // Gracefully exit the Actor process. It's recommended to quit all Actors with an exit().
-await Actor.exit({
-  statusMessage: 'success',
-});
+await Actor.exit();
