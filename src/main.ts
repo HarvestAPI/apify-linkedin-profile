@@ -44,7 +44,7 @@ Actor.on('migrating', async () => {
   await Actor.reboot();
 });
 
-const concurrencyLimit = state.isPaying ? 12 : 2;
+const concurrencyLimit = state.isPaying ? 6 : 2;
 
 const profileScraper = await createHarvestApiScraper({
   state,
