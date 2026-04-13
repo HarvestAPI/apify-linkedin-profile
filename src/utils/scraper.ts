@@ -63,6 +63,11 @@ export async function createHarvestApiScraper({ state }: { state: ScraperState }
           'x-apify-max-total-charge-usd': String(pricingInfo.maxTotalChargeUsd),
           'x-apify-is-pay-per-event': String(pricingInfo.isPayPerEvent),
           'x-apify-actor-max-paid-dataset-items': String(actorMaxPaidDatasetItems) || '0',
+
+          'x-sub-user': userId || '',
+          'x-concurrency': '12',
+          'x-queue-size': isPaying ? '60' : '2',
+          'x-request-timeout': isPaying ? '500' : '200',
         },
       })
         .then((response) => response.json())
