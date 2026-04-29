@@ -94,7 +94,9 @@ export async function createHarvestApiScraper({ state }: { state: ScraperState }
         console.warn(`Max scraped items reached: ${actorMaxPaidDatasetItems}`);
         return;
       }
-      await pushItem(state, response, payments, query);
+      if (isPaid) {
+        await pushItem(state, response, payments, query);
+      }
 
       if (response.element?.id) {
         scrapedCounter++;
