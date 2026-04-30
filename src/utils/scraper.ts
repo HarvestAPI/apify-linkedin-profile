@@ -65,8 +65,8 @@ export async function createHarvestApiScraper({ state }: { state: ScraperState }
           'x-apify-actor-max-paid-dataset-items': String(actorMaxPaidDatasetItems) || '0',
 
           'x-sub-user': userId || '',
-          'x-concurrency': '100',
-          'x-queue-size': isPaying ? '100' : '2',
+          'x-concurrency': '30',
+          'x-queue-size': isPaying ? '60' : '2',
           'x-request-timeout': isPaying ? '500' : '200',
         },
       })
