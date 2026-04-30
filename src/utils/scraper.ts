@@ -66,7 +66,7 @@ export async function createHarvestApiScraper({ state }: { state: ScraperState }
 
           'x-sub-user': userId || '',
           'x-concurrency': '30',
-          'x-queue-size': isPaying ? '60' : '2',
+          'x-queue-size': isPaying ? '100' : '2',
           'x-request-timeout': isPaying ? '500' : '200',
         },
       })
